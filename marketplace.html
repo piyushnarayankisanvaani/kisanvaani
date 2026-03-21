@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KisanVaani - Marketplace</title>
+  
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#1B4332">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/app.js"></script>
+  <script src="js/data.js"></script>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="brand">🌾 మార్కెట్ ప్లేస్</div>
+    <a href="javascript:history.back()" class="btn btn-outline" style="border-color:white; color:white; padding:4px 12px;">Back</a>
+  </nav>
+
+  <div class="container" style="margin-top:20px;">
+    
+    <!-- Filter Bar -->
+    <div class="card" style="padding:16px; margin-bottom:20px; display:flex; gap:12px; overflow-x:auto;">
+      <button class="chip" onclick="filterListings('all')" style="background:var(--primary); color:white;">అన్నీ</button>
+      <button class="chip" onclick="filterListings('Rice')">🌾 వరి</button>
+      <button class="chip" onclick="filterListings('Cotton')">🌿 పత్తి</button>
+      <button class="chip" onclick="filterListings('Chilli')">🌶️ మిర్చి</button>
+    </div>
+
+    <!-- Listings Grid -->
+    <div id="marketplace-grid" class="grid-2">
+      <!-- Injected by JS -->
+    </div>
+
+  </div>
+
+  <button class="fab-whatsapp" onclick="window.open('https://wa.me/919059292300', '_blank')">💬</button>
+
+  <script>
+    let currentData = [];
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Allow buyers or unregistered folks (with limited view)
+      checkAuthDisplays();
+      loadMarketplace();
+      
+      const params = new URLSearchParams(window.location.search);
+      if(params.get('crop')) {
+        filterListings(params.get('crop'));
+      } else if (params.get('q')) {
+        const q = params.get('q').toLowerCase();
+        const filtered = getActiveListings().filter(l => 
+          (l.cropTe && l.cropTe.toLowerCase().includes(q)) || 
+          (l.crop && l.crop.toLowerCase().includes(q))
+        );
+        renderMarketTiles(filtered);
+      }
+    });
+
+    function loadMarketplace() {
+      currentData = getActiveListings();
+      renderMarketTiles(currentData);
+    }
+
+    function filterListings(type) {
+      if(type === 'all') renderMarketTiles(currentData);
+      else {
+        renderMarketTiles(currentData.filter(l => l.crop === type));
+      }
+    }
+
+    function renderMarketTiles(listings) {
+      const g = document.getElementById('marketplace-grid');
+      if(listings.length === 0) {
+        g.innerHTML = `<div class="card" style="grid-column: span 2; text-align:center;">ప్రస్తుతం జాబితాలు లేవు</div>`;
+        return;
+      }
+      
+      g.innerHTML = listings.map(l => `
+        <div class="card" style="padding:16px; position:relative;">
+          <div style="font-size:32px; margin-bottom:8px;">${l.emoji || '🌾'}</div>
+          <div style="font-weight:bold; font-size:16px;">${l.cropTe || l.crop}</div>
+          <div style="font-size:13px; color:var(--text-muted); margin-bottom:4px;">📍 ${l.village || 'ఖమ్మం'}</div>
+          <div style="font-size:13px; color:var(--text-muted); margin-bottom:8px;">పరిమాణం: ${l.qty}</div>
+          <div style="color:var(--primary); font-weight:800; font-size:18px; margin-bottom:12px;">₹${l.price}</div>
+          
+          <div style="display:flex; gap:8px;">
+            <button onclick="openFarmerWhatsApp('${l.farmerPhone || l.farmer_phone}', '${l.cropTe || l.crop}')" class="btn" style="background:#25D366; color:white; flex:1; padding:8px; font-size:12px;">WhatsApp</button>
+            <button onclick="window.location.href='crop-detail.html?id=${l.id}'" class="btn btn-outline" style="flex:1; padding:8px; font-size:12px;">వివరాలు</button>
+          </div>
+        </div>
+      `).join('');
+    }
+  </script>
+
+  <script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js'));
+  }
+  </script>
+</body>
+</html>

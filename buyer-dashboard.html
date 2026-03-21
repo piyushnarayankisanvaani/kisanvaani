@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KisanVaani - Buyer Dashboard</title>
+  
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#1B4332">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/app.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/mandi.js"></script>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="brand">🌾 KisanVaani</div>
+    <div style="display:flex; align-items:center; gap:12px;">
+      <span style="font-size:14px; font-weight:600;"><span class="user-name-display">కొనుగోలుదారు</span></span>
+      <button onclick="logoutUser()" class="btn btn-outline" style="border-color:white; color:white; padding:4px 12px; font-size:12px;">లాగౌట్</button>
+    </div>
+  </nav>
+
+  <div class="ticker-wrap">
+    <div class="ticker">
+      వరి: ₹2400 | పత్తి: ₹6100 | మిర్చి: ₹19500 | పసుపు: ₹9500 | పెసర: ₹8200
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Welcome Banner -->
+    <div style="background: linear-gradient(135deg, #F59E0B, #D97706); border-radius: 20px; padding: 28px; margin-bottom: 20px; color: #000; position: relative;">
+      <h2 id="greeting-title" style="color:#000; font-size: 22px; font-weight: bold; margin-bottom: 4px;">శుభ మధ్యాహ్నం, <span class="user-name-display">కొనుగోలుదారు</span>! 🛒</h2>
+      <p style="color: rgba(0,0,0,0.7); font-size: 14px; font-weight:500;">ఖమ్మం జిల్లాలో తాజా పంటలు కొనండి</p>
+    </div>
+
+    <!-- Big Search -->
+    <div style="margin-bottom: 20px;">
+      <label style="font-weight:700; display:block; margin-bottom:8px; font-size:16px;">ఏ పంట కావాలి?</label>
+      <div style="display:flex; gap:10px;">
+        <div style="position:relative; flex:1;">
+          <span style="position:absolute; left:16px; top:50%; transform:translateY(-50%); font-size:20px;">🔍</span>
+          <input type="text" id="buyer-search" class="form-control" style="height:56px; padding-left:48px; border-color:var(--primary); font-size:16px;" placeholder="పంట పేరు వెతకండి...">
+        </div>
+        <button onclick="searchCrop()" class="btn btn-primary" style="height:56px; padding:0 24px;">వెతకండి</button>
+      </div>
+    </div>
+
+    <!-- Quick Chips -->
+    <div style="display:flex; overflow-x:auto; gap:12px; padding-bottom:12px; margin-bottom:10px;">
+      <div class="chip" onclick="goMarket('Rice')">🌾 వరి</div>
+      <div class="chip" onclick="goMarket('Chilli')">🌶️ మిర్చి</div>
+      <div class="chip" onclick="goMarket('Cotton')">🌿 పత్తి</div>
+      <div class="chip" onclick="goMarket('Turmeric')">🟡 పసుపు</div>
+      <div class="chip" onclick="goMarket('Maize')">🌽 మొక్కజొన్న</div>
+      <div class="chip" onclick="goMarket('Tomato')">🍅 టమాటా</div>
+      <div class="chip" onclick="goMarket('Onion')">🧅 ఉల్లి</div>
+      <div class="chip" onclick="goMarket('Groundnut')">🥜 వేరుశెనగ</div>
+    </div>
+
+    <!-- Fresh Listings -->
+    <div style="margin-bottom: 20px; display:flex; justify-content:space-between; align-items:center;">
+      <h3>తాజా జాబితాలు</h3>
+      <a href="marketplace.html" style="color:var(--primary); font-size:14px; font-weight:700;">అన్నీ చూడండి →</a>
+    </div>
+    
+    <div class="grid-2" id="fresh-listings-container">
+      <div class="card" style="text-align:center;">లోడ్ అవుతోంది...</div>
+    </div>
+
+    <!-- Mandi Preview -->
+    <div style="margin-bottom: 20px; display:flex; justify-content:space-between; align-items:center; margin-top:30px;">
+      <h3>ఈరోజు ధరలు</h3>
+      <a href="mandi-prices.html" style="color:var(--primary); font-size:14px; font-weight:700;">మరిన్ని →</a>
+    </div>
+    <div class="grid-2" id="mandi-preview">
+      <div class="card" style="text-align:center;">లోడ్ అవుతోంది...</div>
+    </div>
+
+    <!-- Facilities -->
+    <div style="margin-bottom: 20px; display:flex; justify-content:space-between; align-items:center; margin-top:30px;">
+      <h3>సౌకర్యాలు</h3>
+    </div>
+    <div class="grid-2">
+      <a href="facilities.html#rice" class="card" style="padding:16px; display:flex; align-items:center; gap:10px;">
+        <span style="font-size:24px;">🏭</span><span style="font-weight:600;">రైస్ మిల్లులు (8)</span>
+      </a>
+      <a href="facilities.html#chilli" class="card" style="padding:16px; display:flex; align-items:center; gap:10px;">
+        <span style="font-size:24px;">🌶️</span><span style="font-weight:600;">మిర్చి ప్లాంట్స్ (6)</span>
+      </a>
+      <a href="facilities.html#cold" class="card" style="padding:16px; display:flex; align-items:center; gap:10px;">
+        <span style="font-size:24px;">❄️</span><span style="font-weight:600;">కోల్డ్ స్టోరేజ్ (6)</span>
+      </a>
+      <a href="facilities.html#cotton" class="card" style="padding:16px; display:flex; align-items:center; gap:10px;">
+        <span style="font-size:24px;">🌿</span><span style="font-weight:600;">జిన్నింగ్ మిల్లులు (2)</span>
+      </a>
+    </div>
+
+    <!-- Support Box -->
+    <div style="background: var(--primary); border-radius: 16px; padding: 20px; margin-top: 20px; color: white; display:flex; justify-content:space-between; align-items:center;">
+      <div>
+        <div style="font-weight:bold; font-size:16px; margin-bottom:4px;">🙏 సహాయం కావాలా?</div>
+        <div style="font-weight:bold; color:var(--secondary); font-size:14px;">WhatsApp: 9059292300</div>
+      </div>
+      <button onclick="window.open('https://wa.me/919059292300')" class="btn btn-secondary" style="padding:8px 16px; height:auto;">WhatsApp <br>చేయండి</button>
+    </div>
+
+  </div>
+
+  <button class="fab-whatsapp" onclick="window.open('https://wa.me/919059292300', '_blank')">💬</button>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      requireBuyerAuth();
+      const user = getUser();
+      
+      const hour = new Date().getHours();
+      let greeting = 'శుభ సాయంత్రం';
+      if(hour < 12) greeting = 'శుభోదయం';
+      else if(hour < 17) greeting = 'శుభ మధ్యాహ్నం';
+      
+      document.getElementById('greeting-title').innerHTML = `${greeting}, <span class="user-name-display">${user.name}</span>! 🛒`;
+      
+      loadListings();
+    });
+
+    function goMarket(crop) {
+      window.location.href = 'marketplace.html?crop=' + encodeURIComponent(crop);
+    }
+
+    function searchCrop() {
+      const q = document.getElementById('buyer-search').value;
+      if(q.trim()) {
+        window.location.href = 'marketplace.html?q=' + encodeURIComponent(q);
+      }
+    }
+
+    function loadListings() {
+      const active = getActiveListings();
+      const container = document.getElementById('fresh-listings-container');
+      
+      if(active.length === 0) {
+        container.innerHTML = `<div class="card" style="grid-column: span 2; text-align:center;">తాజా జాబితాలు లేవు.</div>`;
+      } else {
+        container.innerHTML = active.slice(0, 6).map(l => `
+          <div class="card" style="padding:16px;">
+            <div style="font-size:32px; margin-bottom:8px;">${l.emoji || '🌾'}</div>
+            <div style="font-weight:bold; font-size:16px;">${l.cropTe || l.crop}</div>
+            <div style="font-size:13px; color:var(--text-muted); margin-bottom:8px;">పరిమాణం: ${l.qty}</div>
+            <div style="color:var(--primary); font-weight:800; font-size:18px; margin-bottom:12px;">₹${l.price}</div>
+            <button onclick="openFarmerWhatsApp('${l.farmerPhone || l.farmer_phone}', '${l.cropTe || l.crop}')" class="btn" style="background:#25D366; color:white; width:100%; font-size:13px; padding:8px;">WhatsApp</button>
+          </div>
+        `).join('');
+      }
+    }
+
+    window.renderPrices = function(prices) {
+      const container = document.getElementById('mandi-preview');
+      container.innerHTML = prices.slice(0, 4).map(p => `
+        <div class="card" style="padding:16px; display:flex; align-items:center; gap:12px;">
+          <div style="font-size:28px;">${p.emoji}</div>
+          <div>
+            <div style="font-weight:bold; font-size:14px;">${p.cropTe}</div>
+            <div style="color:var(--primary); font-weight:800; font-size:15px;">₹${p.modal}</div>
+          </div>
+        </div>
+      `).join('');
+    };
+  </script>
+
+  <script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js'));
+  }
+  </script>
+</body>
+</html>

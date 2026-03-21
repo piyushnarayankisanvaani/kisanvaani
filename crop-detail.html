@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KisanVaani - Crop Details</title>
+  
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#1B4332">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/app.js"></script>
+  <script src="js/data.js"></script>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="brand">🌾 పంట వివరాలు</div>
+    <a href="javascript:history.back()" class="btn btn-outline" style="border-color:white; color:white; padding:4px 12px;">Back</a>
+  </nav>
+
+  <div class="container" style="margin-top:20px;">
+    
+    <div id="detail-container" class="card" style="padding:40px 20px;">
+      <div style="text-align:center;">లోడ్ అవుతోంది...</div>
+    </div>
+
+  </div>
+
+  <button class="fab-whatsapp" onclick="window.open('https://wa.me/919059292300', '_blank')">💬</button>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get('id');
+      
+      const listings = getAllListings();
+      const listing = listings.find(l => l.id === id);
+      
+      const container = document.getElementById('detail-container');
+      if(!listing) {
+        container.innerHTML = `<h3 style="text-align:center; color:var(--danger)">పంట కనుగొనబడలేదు</h3>`;
+        return;
+      }
+      
+      container.innerHTML = `
+        <div style="text-align:center; margin-bottom:24px;">
+          <div style="font-size:80px; line-height:1; margin-bottom:16px;">${listing.emoji || '🌾'}</div>
+          <h2 style="font-size:28px;">${listing.cropTe || listing.crop}</h2>
+          <div style="color:var(--primary); font-size:32px; font-weight:900; margin-top:8px;">₹${listing.price}</div>
+          <div style="color:var(--text-muted); margin-top:8px;">
+            <span class="badge ${listing.isAvailable !== false ? 'badge-active' : 'badge-sold'}">
+              ${listing.isAvailable !== false ? 'అందుబాటులో ఉంది' : 'అమ్ముడైంది'}
+            </span>
+          </div>
+        </div>
+        
+        <div style="background:var(--bg-color); border-radius:12px; padding:20px; margin-bottom:30px;">
+          <div style="display:flex; justify-content:space-between; margin-bottom:12px; border-bottom:1px solid #e2e8f0; padding-bottom:12px;">
+            <span style="color:var(--text-muted); font-weight:600;">పరిమాణం</span>
+            <span style="font-weight:700;">${listing.qty}</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; margin-bottom:12px; border-bottom:1px solid #e2e8f0; padding-bottom:12px;">
+            <span style="color:var(--text-muted); font-weight:600;">గ్రామం / ప్రాంతం</span>
+            <span style="font-weight:700;">📍 ${listing.village || 'ఖమ్మం'}</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; margin-bottom:12px; border-bottom:1px solid #e2e8f0; padding-bottom:12px;">
+            <span style="color:var(--text-muted); font-weight:600;">పోస్ట్ చేసిన తేదీ</span>
+            <span style="font-weight:700;">${new Date(listing.date).toLocaleDateString()}</span>
+          </div>
+          ${listing.voiceRaw ? `
+          <div style="margin-top:16px;">
+            <span style="color:var(--secondary); font-weight:600; font-size:14px;">🎙️ వాయిస్ నోట్:</span>
+            <div style="background:white; padding:12px; border-radius:8px; margin-top:8px; font-style:italic;">
+              "${listing.voiceRaw}"
+            </div>
+          </div>
+          ` : ''}
+        </div>
+        
+        <button onclick="openFarmerWhatsApp('${listing.farmerPhone || listing.farmer_phone}', '${listing.cropTe || listing.crop}')" class="btn" style="background:#25D366; color:white; width:100%; height:56px; font-size:18px;">
+          <span style="font-size:24px; margin-right:8px;">💬</span> రైతుతో చాట్ చేయండి
+        </button>
+      `;
+    });
+  </script>
+
+  <script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js'));
+  }
+  </script>
+</body>
+</html>

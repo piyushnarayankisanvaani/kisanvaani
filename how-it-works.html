@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KisanVaani - How it Works</title>
+  
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#1B4332">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/app.js"></script>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="brand">💡 ఎలా పని చేస్తుంది</div>
+    <a href="index.html" class="btn btn-outline" style="border-color:white; color:white; padding:4px 12px;">Back</a>
+  </nav>
+
+  <div class="container" style="margin-top:20px;">
+    
+    <div style="text-align:center; margin-bottom:30px;">
+      <h2 style="font-size:24px; margin-bottom:12px;">రైతులకు చాలా సులభం</h2>
+      <p style="color:var(--text-muted);">మా యాప్ డిజైన్ పూర్తిగా రైతుల కోసం తయారు చేయబడింది. మీరు వాయిస్ ద్వారా లేదా సాధారణ ఫారమ్ ద్వారా మీ పంటను అమ్మవచ్చు.</p>
+    </div>
+
+    <!-- Steps -->
+    <div style="position:relative; margin-bottom:40px;">
+      
+      <div class="card" style="display:flex; gap:16px; align-items:center; margin-bottom:16px;">
+        <div style="background:var(--secondary); color:#000; width:48px; height:48px; border-radius:50%; display:flex; justify-content:center; align-items:center; font-size:20px; font-weight:900; flex-shrink:0;">1</div>
+        <div>
+          <h3 style="margin-bottom:4px; font-size:18px;">యాప్ తెరవండి</h3>
+          <p style="color:var(--text-muted); font-size:14px;">రైతుగా లాగిన్ చేయండి మరియు "పంట జాబితా చేయండి" పైన నొక్కండి.</p>
+        </div>
+      </div>
+      
+      <div class="card" style="display:flex; gap:16px; align-items:center; margin-bottom:16px;">
+        <div style="background:var(--secondary); color:#000; width:48px; height:48px; border-radius:50%; display:flex; justify-content:center; align-items:center; font-size:20px; font-weight:900; flex-shrink:0;">2</div>
+        <div>
+          <h3 style="margin-bottom:4px; font-size:18px;">వాయిస్ ఐకాన్ నొక్కండి</h3>
+          <p style="color:var(--text-muted); font-size:14px;">మైక్ ఐకాన్ 🎙️ నొక్కి మీ పంట వివరాలు (ఉదాహరణకి: "నా దగ్గర 10 క్వింటాళ్ల పత్తి ఉంది") అని మాట్లడండి.</p>
+        </div>
+      </div>
+      
+      <div class="card" style="display:flex; gap:16px; align-items:center; margin-bottom:16px;">
+        <div style="background:var(--primary); color:white; width:48px; height:48px; border-radius:50%; display:flex; justify-content:center; align-items:center; font-size:20px; font-weight:900; flex-shrink:0;">3</div>
+        <div>
+          <h3 style="margin-bottom:4px; font-size:18px;">జాబితా పూర్తయింది! ✅</h3>
+          <p style="color:var(--text-muted); font-size:14px;">మీ పంట మార్కెట్ ప్లేస్ లో అందరికీ కనిపిస్తుంది. కొనుగోలుదారులు వాట్సాప్ ద్వారా మిమ్మల్ని సంప్రదిస్తారు.</p>
+        </div>
+      </div>
+      
+    </div>
+
+    <div style="text-align:center;">
+      <a href="register.html?type=farmer" class="btn btn-primary" style="padding:16px 32px; font-size:18px; width:100%; max-width:400px;">మొదలుపెట్టండి →</a>
+    </div>
+
+  </div>
+
+  <button class="fab-whatsapp" onclick="window.open('https://wa.me/919059292300', '_blank')">💬</button>
+
+  <script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js'));
+  }
+  </script>
+</body>
+</html>

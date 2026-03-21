@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KisanVaani - Profile</title>
+  
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#1B4332">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/app.js"></script>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="brand">👤 నా ప్రొఫైల్</div>
+    <a href="javascript:history.back()" class="btn btn-outline" style="border-color:white; color:white; padding:4px 12px;">Back</a>
+  </nav>
+
+  <div class="container" style="margin-top:20px;">
+    
+    <div style="text-align:center; padding:40px 20px;" class="card">
+      <div style="width:100px; height:100px; font-size:50px; background:var(--primary-light); color:white; border-radius:50%; display:flex; justify-content:center; align-items:center; margin:0 auto 20px;">
+        <span class="user-name-display" style="font-size:40px;">R</span>
+      </div>
+      <h2 style="margin-bottom:8px;"><span class="user-name-display">యూజర్</span></h2>
+      <p style="color:var(--text-muted); font-size:16px;">ఖమ్మం</p>
+      
+      <div style="margin-top:24px; padding-top:24px; border-top:1px solid #e2e8f0; text-align:left;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+          <strong style="color:var(--text-muted);">యాప్ వెర్షన్</strong>
+          <span>v2.0 PWA</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+          <strong style="color:var(--text-muted);">భాష</strong>
+          <span>తెలుగు</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;">
+          <strong style="color:var(--text-muted);">సహాయం</strong>
+          <span style="color:var(--primary); font-weight:bold; cursor:pointer;" onclick="window.open('https://wa.me/919059292300')">+91 9059292300</span>
+        </div>
+      </div>
+      
+      <button onclick="logoutUser()" class="btn btn-outline" style="border-color:var(--danger); color:var(--danger); width:100%; height:52px; font-size:16px;">లాగౌట్ అవ్వండి</button>
+    </div>
+
+  </div>
+
+  <button class="fab-whatsapp" onclick="window.open('https://wa.me/919059292300', '_blank')">💬</button>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const user = getUser();
+      if (!user.isLoggedIn) {
+        window.location.href = 'login.html';
+        return;
+      }
+      
+      const names = document.querySelectorAll('.user-name-display');
+      names.forEach(n => n.innerText = user.name || (user.userType === 'farmer' ? 'రైతు' : 'కొనుగోలుదారు'));
+      
+      if(user.name) {
+        names[0].innerText = user.name.charAt(0).toUpperCase();
+      }
+    });
+  </script>
+
+  <script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js'));
+  }
+  </script>
+</body>
+</html>

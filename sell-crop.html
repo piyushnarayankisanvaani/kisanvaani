@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KisanVaani - Sell Crop</title>
+  
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#1B4332">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/app.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/voice.js"></script>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="brand">🌾 KisanVaani</div>
+    <a href="farmer-dashboard.html" class="btn btn-outline" style="border-color:white; color:white; padding:4px 12px;">Back</a>
+  </nav>
+
+  <div class="container" style="margin-top:20px;">
+    <!-- Tabs -->
+    <div style="display:flex; border-bottom:2px solid var(--border); margin-bottom:24px;">
+      <div id="tab-voice" class="sell-tab active-tab" onclick="switchTab('voice')" style="flex:1; text-align:center; padding:12px; font-weight:700; cursor:pointer;">🎙️ వాయిస్ ద్వారా</div>
+      <div id="tab-form" class="sell-tab" onclick="switchTab('form')" style="flex:1; text-align:center; padding:12px; font-weight:700; cursor:pointer;">📝 ఫారమ్ ద్వారా</div>
+    </div>
+    
+    <style>
+      .sell-tab { color:var(--text-muted); border-bottom: 2px solid transparent; margin-bottom: -2px; }
+      .active-tab { color:var(--primary); border-bottom: 2px solid var(--primary); }
+    </style>
+
+    <!-- Voice Section -->
+    <div id="section-voice" class="card" style="text-align:center; padding:40px 20px;">
+      <div style="width:80px; height:80px; background:var(--bg-color); border-radius:50%; display:flex; justify-content:center; align-items:center; margin:0 auto 20px;">
+        <span style="font-size:40px;">🗣️</span>
+      </div>
+      <h3 style="margin-bottom:12px;">మైక్ నొక్కి మాట్లాడండి</h3>
+      <p style="color:var(--text-muted); margin-bottom:24px;">ఉదా: "నా దగ్గర 20 క్వింటాళ్ల పత్తి ఉంది, ధర 6000"</p>
+      
+      <textarea id="voice-input-display" class="form-control" style="height:120px; text-align:center; font-size:18px; margin-bottom:20px;" placeholder="మీ మాటలు ఇక్కడ వస్తాయి..."></textarea>
+      
+      <button onclick="startVoiceRecognition()" class="btn btn-secondary" style="width:100%; height:56px; font-size:18px; margin-bottom:16px;">🎙️ మాట్లాడండి</button>
+      <button onclick="submitVoiceData()" class="btn btn-primary" style="width:100%; height:56px; font-size:18px;">✅ సమర్పించండి</button>
+    </div>
+
+    <!-- Form Section -->
+    <div id="section-form" class="card" style="display:none;">
+      <form id="sell-form">
+        <div class="form-group">
+          <label>పంట రకం</label>
+          <select id="crop-type" class="form-control" required>
+            <option value="">-- ఎంచుకోండి --</option>
+            <option value="Rice">వరి 🌾</option>
+            <option value="Cotton">పత్తి 🌿</option>
+            <option value="Chilli">మిర్చి 🌶️</option>
+            <option value="Turmeric">పసుపు 🟡</option>
+            <option value="Maize">మొక్కజొన్న 🌽</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>పరిమాణం</label>
+          <input type="text" id="crop-qty" class="form-control" required placeholder="ఉదా: 20 క్వింటాళ్లు">
+        </div>
+        <div class="form-group">
+          <label>ఆశించే ధర (₹)</label>
+          <input type="number" id="crop-price" class="form-control" required placeholder="ఒక క్వింటాల్ కు">
+        </div>
+        <div class="form-group">
+          <label>వూరి పేరు</label>
+          <input type="text" id="crop-village" class="form-control" required placeholder="గ్రామం">
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%; height:56px; margin-top:16px; font-size:18px;">జాబితా ప్రచురించండి</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      requireFarmerAuth();
+      const user = getUser();
+      document.getElementById('crop-village').value = user.village || '';
+      
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('tab') === 'form') {
+        switchTab('form');
+      }
+    });
+
+    function switchTab(tab) {
+      if(tab === 'voice') {
+        document.getElementById('tab-voice').classList.add('active-tab');
+        document.getElementById('tab-form').classList.remove('active-tab');
+        document.getElementById('section-voice').style.display = 'block';
+        document.getElementById('section-form').style.display = 'none';
+      } else {
+        document.getElementById('tab-form').classList.add('active-tab');
+        document.getElementById('tab-voice').classList.remove('active-tab');
+        document.getElementById('section-form').style.display = 'block';
+        document.getElementById('section-voice').style.display = 'none';
+      }
+    }
+
+    document.getElementById('sell-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const typeSel = document.getElementById('crop-type');
+      const crop = typeSel.value;
+      const cropTe = typeSel.options[typeSel.selectedIndex].text;
+      
+      const listing = {
+        farmerPhone: getUser().phone,
+        crop: crop,
+        cropTe: cropTe,
+        emoji: cropTe.substr(-2), // simplified
+        qty: document.getElementById('crop-qty').value,
+        price: parseInt(document.getElementById('crop-price').value),
+        village: document.getElementById('crop-village').value,
+        isAvailable: true
+      };
+      
+      saveListing(listing);
+      window.location.href = 'listing-success.html';
+    });
+    
+    function submitVoiceData() {
+      const text = document.getElementById('voice-input-display').value;
+      if(!text.trim()) {
+        showToast('దయచేసి ముందు మాట్లాడండి లేదా టైప్ చేయండి', 'error');
+        return;
+      }
+      
+      // Fake NLP parse, just defaults
+      const listing = {
+        farmerPhone: getUser().phone,
+        crop: 'Rice',
+        cropTe: 'వరి వాయిస్ 🌾',
+        emoji: '🌾',
+        qty: '10 క్వింటాళ్లు (Auto)',
+        price: 2400,
+        village: getUser().village || 'ఖమ్మం',
+        isAvailable: true,
+        voiceRaw: text
+      };
+      saveListing(listing);
+      window.location.href = 'listing-success.html';
+    }
+  </script>
+
+  <script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js'));
+  }
+  </script>
+</body>
+</html>

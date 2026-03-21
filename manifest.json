@@ -1,0 +1,79 @@
+{
+  "name": "KisanVaani — కిసాన్ వాణి",
+  "short_name": "KisanVaani",
+  "description": "తెలుగు వాయిస్ అగ్రిటెక్ — ఖమ్మం జిల్లా రైతుల కోసం",
+  "start_url": "/index.html",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#1B4332",
+  "theme_color": "#1B4332",
+  "lang": "te",
+  "dir": "ltr",
+  "categories": ["agriculture", "business", "productivity"],
+  "icons": [
+    {
+      "src": "icons/icon-72.png",
+      "sizes": "72x72",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "పంట జాబితా చేయండి",
+      "short_name": "Sell Crop",
+      "url": "/sell-crop.html",
+      "icons": [{"src": "icons/icon-96.png", "sizes": "96x96"}]
+    },
+    {
+      "name": "మార్కెట్ప్లేస్",
+      "short_name": "Market",
+      "url": "/marketplace.html",
+      "icons": [{"src": "icons/icon-96.png", "sizes": "96x96"}]
+    },
+    {
+      "name": "మండి ధరలు",
+      "short_name": "Prices",
+      "url": "/mandi-prices.html",
+      "icons": [{"src": "icons/icon-96.png", "sizes": "96x96"}]
+    },
+    {
+      "name": "వాతావరణం",
+      "short_name": "Weather",
+      "url": "/weather.html",
+      "icons": [{"src": "icons/icon-96.png", "sizes": "96x96"}]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "icons/screenshot-home.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "KisanVaani Home"
+    }
+  ],
+  "prefer_related_applications": false
+}

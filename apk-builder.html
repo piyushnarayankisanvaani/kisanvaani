@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>KisanVaani APK Builder Guide</title>
+<style>
+  body { font-family: sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; padding: 20px; background: #f8fafc; color: #1e293b; }
+  h1 { color: #1B4332; }
+  h2 { color: #2D6A4F; border-bottom: 2px solid #E2E8F0; padding-bottom: 10px; margin-top: 40px; }
+  .box { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 20px; }
+  .btn { display: inline-block; background: #1B4332; color: white; text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; margin-top: 10px; }
+  pre { background: #1e293b; color: #e2e8f0; padding: 15px; border-radius: 8px; overflow-x: auto; }
+</style>
+</head>
+<body>
+
+<h1>KisanVaani APK Builder Instructions</h1>
+<p>This guide walks you through generating an Android APK for KisanVaani using free tools since the web app is now fully PWA-ready.</p>
+
+<div class="box">
+  <h2>Section 1 — METHOD A: AppsGeyser (5 minutes, no coding)</h2>
+  <ol>
+    <li>Go to appsgeyser.com</li>
+    <li>Click "Create App" → choose "Website"</li>
+    <li>URL: <code>https://yourusername.github.io/kisanvaani</code></li>
+    <li>App Name: <strong>KisanVaani</strong></li>
+    <li>Upload icon (green + wheat)</li>
+    <li>Click Create → Download APK</li>
+  </ol>
+  <a href="https://appsgeyser.com" target="_blank" class="btn">Open AppsGeyser →</a>
+</div>
+
+<div class="box">
+  <h2>Section 2 — METHOD B: WebIntoApp (better quality)</h2>
+  <ol>
+    <li>Go to webintoapp.com</li>
+    <li>Enter URL: your Vercel or GitHub Pages URL</li>
+    <li>Set App name, icon, package name</li>
+    <li>Build → Download APK (free tier)</li>
+  </ol>
+  <a href="https://webintoapp.com" target="_blank" class="btn">Open WebIntoApp →</a>
+</div>
+
+<div class="box">
+  <h2>Section 3 — METHOD C: GoNative (most professional)</h2>
+  <ol>
+    <li>Go to gonative.io</li>
+    <li>Enter your Web App URL</li>
+    <li>Customize the icon, UI colors</li>
+    <li>Download trial APK (free)</li>
+  </ol>
+  <a href="https://gonative.io" target="_blank" class="btn">Open GoNative →</a>
+</div>
+
+<div class="box">
+  <h2>Section 4 — After getting APK</h2>
+  <ol>
+    <li>Test the APK on your own Android phone first.</li>
+    <li>Upload APK to GitHub Releases (github.com → your repo → Releases → New Release → Attach APK file → Publish).</li>
+    <li>Update APK download link in <code>index.html</code> so the homepage properly routes to your <code>KisanVaani.apk</code>.</li>
+    <li>Share via WhatsApp to farmers!</li>
+  </ol>
+  
+  <h3>WhatsApp Message Template:</h3>
+  <pre>
+నమస్కారం! 🌾
+KisanVaani App Download చేయండి:
+[APK LINK GOES HERE]
+
+Install చేయడం:
+1. Link నొక్కండి → Download
+2. File తెరవండి
+3. Unknown sources Allow
+4. Install నొక్కండి
+
+100% ఉచితం • తెలుగు • ఖమ్మం రైతుల కోసం
+సహాయం: 9059292300
+  </pre>
+</div>
+
+</body>
+</html>

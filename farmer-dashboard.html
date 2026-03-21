@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KisanVaani - Farmer Dashboard</title>
+  
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#1B4332">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/app.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/weather.js"></script>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="brand">🌾 KisanVaani</div>
+    <div style="display:flex; align-items:center; gap:12px;">
+      <span style="font-size:14px; font-weight:600;"><span class="user-name-display">రైతు</span></span>
+      <button onclick="logoutUser()" class="btn btn-outline" style="border-color:white; color:white; padding:4px 12px; font-size:12px;">లాగౌట్</button>
+    </div>
+  </nav>
+
+  <!-- Price Ticker -->
+  <div class="ticker-wrap">
+    <div class="ticker" id="dashboard-ticker">
+      వరి: ₹2400 | పత్తి: ₹6100 | మిర్చి: ₹19500 | పసుపు: ₹9500 | పెసర: ₹8200
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Welcome Banner -->
+    <div style="background: linear-gradient(135deg, #1B4332, #2D6A4F); border-radius: 20px; padding: 32px; margin-bottom: 20px; color: white; position: relative;">
+      <h2 id="greeting-title" style="color:white; font-size: 24px; font-weight: bold; margin-bottom: 8px;">శుభోదయం, <span class="user-name-display">రైతు</span>! 👋</h2>
+      <p style="color: rgba(255,255,255,0.8); font-size: 15px;">📍 <span id="user-village">ఖమ్మం</span> జిల్లా</p>
+      <button class="btn btn-outline" style="position:absolute; top:20px; right:20px; border-color:rgba(255,255,255,0.3); color:white; padding:4px 8px; font-size:12px;">చీకటి మోడ్</button>
+    </div>
+
+    <!-- Stats Row -->
+    <div class="grid-4" id="stats-row">
+      <div class="card" style="text-align:center; padding:16px;">
+        <div id="stat-active" style="font-size:32px; font-weight:bold; color:var(--primary);">0</div>
+        <div style="font-size:12px; color:var(--text-muted); font-weight:600;">జాబితాలు</div>
+      </div>
+      <div class="card" style="text-align:center; padding:16px;">
+        <div id="stat-sold" style="font-size:32px; font-weight:bold; color:var(--success);">0</div>
+        <div style="font-size:12px; color:var(--text-muted); font-weight:600;">అమ్ముడైనవి</div>
+      </div>
+      <div class="card" style="text-align:center; padding:16px;">
+        <div id="stat-views" style="font-size:32px; font-weight:bold; color:var(--secondary);">0</div>
+        <div style="font-size:12px; color:var(--text-muted); font-weight:600;">వీక్షణలు</div>
+      </div>
+      <div class="card" style="text-align:center; padding:16px;">
+        <div id="stat-week" style="font-size:32px; font-weight:bold; color:#9333ea;">0</div>
+        <div style="font-size:12px; color:var(--text-muted); font-weight:600;">ఈ వారం</div>
+      </div>
+    </div>
+
+    <!-- Weather Mini Card -->
+    <div class="card" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+      <div style="display:flex; align-items:center; gap:12px;">
+        <span id="weather-icon" style="font-size:32px;">🌤️</span>
+        <div>
+          <div style="font-weight:700; font-size:16px;"><span id="weather-temp">--</span>°C • <span id="weather-desc">లోడ్ అవుతోంది...</span></div>
+          <div style="font-size:12px; color:var(--success); margin-top:2px;">వ్యవసాయ సలహా: నీటి పారుదలకి అనుకూలం</div>
+        </div>
+      </div>
+      <a href="weather.html" style="color:var(--primary); font-size:13px; font-weight:bold;">వివరాలు →</a>
+    </div>
+
+    <!-- Main Sell CTA -->
+    <div style="background: var(--success); border-radius: 20px; padding: 40px 20px; margin-bottom: 20px; text-align: center; color: white;">
+      <div style="font-size: 64px; line-height:1; margin-bottom: 16px;">🌾</div>
+      <h2 style="color: white; font-size: 28px; margin-bottom: 8px;">పంట జాబితా చేయండి</h2>
+      <p style="opacity: 0.9; margin-bottom: 24px;">తెలుగులో మాట్లాడి వెంటనే జాబితా చేయండి</p>
+      
+      <div style="display: flex; gap: 12px; max-width: 400px; margin: 0 auto;">
+        <a href="sell-crop.html?tab=voice" class="btn btn-secondary" style="flex:1; height:52px; font-size:16px;">🎙️ వాయిస్ ద్వారా</a>
+        <a href="sell-crop.html?tab=form" class="btn btn-outline" style="flex:1; height:52px; font-size:16px; border-color:white; color:white;">📝 రూపం ద్వారా</a>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="grid-2" style="margin-bottom: 20px;">
+      <a href="my-listings.html" class="card" style="display:flex; align-items:center; gap:12px; padding:20px; border-left: 4px solid var(--primary);">
+        <span style="font-size:24px;">📋</span>
+        <span style="font-weight:600;">నా జాబితాలు</span>
+      </a>
+      <a href="mandi-prices.html" class="card" style="display:flex; align-items:center; gap:12px; padding:20px; border-left: 4px solid var(--secondary);">
+        <span style="font-size:24px;">💰</span>
+        <span style="font-weight:600;">మండి ధరలు</span>
+      </a>
+      <a href="facilities.html" class="card" style="display:flex; align-items:center; gap:12px; padding:20px; border-left: 4px solid #3b82f6;">
+        <span style="font-size:24px;">🏭</span>
+        <span style="font-weight:600;">సౌకర్యాలు</span>
+      </a>
+      <div class="card" onclick="window.open('https://wa.me/919059292300')" style="display:flex; align-items:center; gap:12px; padding:20px; border-left: 4px solid #22c55e; cursor:pointer;">
+        <span style="font-size:24px;">📞</span>
+        <span style="font-weight:600;">సహాయం</span>
+      </div>
+    </div>
+    
+    <!-- Recent Listings -->
+    <div style="margin-bottom: 20px; display:flex; justify-content:space-between; align-items:center;">
+      <h3>నా తాజా జాబితాలు</h3>
+      <a href="my-listings.html" style="color:var(--primary); font-size:14px; font-weight:700;">అన్నీ చూడండి →</a>
+    </div>
+    <div id="recent-listings-container">
+      <div class="card" style="text-align:center; color:var(--text-muted); padding:30px;">
+        లోడ్ అవుతోంది...
+      </div>
+    </div>
+  </div>
+
+  <button class="fab-mic" onclick="window.location.href='sell-crop.html?tab=voice'">🎙️</button>
+  <button class="fab-whatsapp" onclick="window.open('https://wa.me/919059292300', '_blank')">💬</button>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      requireFarmerAuth();
+      const user = getUser();
+      
+      const hour = new Date().getHours();
+      let greeting = 'శుభ సాయంత్రం';
+      if(hour < 12) greeting = 'శుభోదయం';
+      else if(hour < 17) greeting = 'శుభ మధ్యాహ్నం';
+      
+      document.getElementById('greeting-title').innerHTML = `${greeting}, <span class="user-name-display">${user.name}</span>! 👋`;
+      document.getElementById('user-village').innerText = user.village || 'ఖమ్మం';
+      
+      loadStats();
+    });
+
+    function loadStats() {
+      const my = getMyListings();
+      const active = my.filter(l => l.isAvailable !== false);
+      const sold = my.filter(l => l.isAvailable === false);
+      
+      document.getElementById('stat-active').innerText = active.length;
+      document.getElementById('stat-sold').innerText = sold.length;
+      document.getElementById('stat-views').innerText = my.length * 14; 
+      document.getElementById('stat-week').innerText = active.length > 0 ? 1 : 0;
+      
+      const container = document.getElementById('recent-listings-container');
+      if (my.length === 0) {
+        container.innerHTML = `<div class="card" style="text-align:center; padding:30px;">
+          జాబితాలు లేవు. మొదటి జాబితా చేయండి! <br>
+          <a href="sell-crop.html" class="btn btn-primary" style="margin-top:10px;">పంట జాబితా చేయండి</a>
+        </div>`;
+      } else {
+        container.innerHTML = my.slice(0,3).map(l => `
+          <div class="card" style="display:flex; justify-content:space-between; align-items:center; padding:16px; margin-bottom:12px;">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <span style="font-size:32px;">${l.emoji || '🌾'}</span>
+              <div>
+                <div style="font-weight:700;">${l.cropTe || l.crop} <span style="color:var(--text-muted); font-size:13px; font-weight:normal;">• ${l.qty}</span></div>
+                <div style="color:var(--primary); font-weight:600; font-size:15px;">₹${l.price}</div>
+              </div>
+            </div>
+            <div>
+              <span class="badge ${l.isAvailable !== false ? 'badge-active' : 'badge-sold'}">
+                ${l.isAvailable !== false ? 'అందుబాటులో ఉంది' : 'అమ్ముడైంది'}
+              </span>
+            </div>
+          </div>
+        `).join('');
+      }
+    }
+
+    // Weather hook
+    window.renderWeather = function(data) {
+      if(!data || !data.current) return;
+      document.getElementById('weather-temp').innerText = Math.round(data.current.temperature_2m);
+      document.getElementById('weather-icon').innerText = WEATHER_CODES[data.current.weather_code] || '☀️';
+      document.getElementById('weather-desc').innerText = WEATHER_TE[data.current.weather_code] || 'స్పష్టమైన ఆకాశం';
+    };
+  </script>
+
+  <script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js'));
+  }
+  </script>
+</body>
+</html>
