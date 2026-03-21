@@ -5,17 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>KisanVaani - Register</title>
   
-  <link rel="manifest" href="/manifest.json">
+  <link rel="manifest" href="./manifest.json">
   <meta name="theme-color" content="#1B4332">
-  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+  <link rel="apple-touch-icon" href="./icons/icon-192.png">
   
-  <link rel="stylesheet" href="css/style.css">
-  <script src="js/app.js"></script>
+  <link rel="stylesheet" href="./css/style.css">
+  <script src="./js/app.js"></script>
 </head>
 <body>
   <nav class="navbar">
     <div class="brand">🌾 KisanVaani</div>
-    <a href="index.html" class="btn btn-outline" style="border-color:white; color:white; padding:4px 12px;">Back</a>
+    <a href="./index.html" class="btn btn-outline" style="border-color:white; color:white; padding:4px 12px;">Back</a>
   </nav>
 
   <div class="container" style="max-width: 500px; margin-top: 40px;">
@@ -46,7 +46,7 @@
         <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;">నమోదు చేసుకోండి</button>
       </form>
       <p style="text-align: center; margin-top: 20px;">
-        ఇప్పటికే ఖాతా ఉందా? <a href="login.html" style="color: var(--primary); font-weight: bold;">లాగిన్ అవ్వండి</a>
+        ఇప్పటికే ఖాతా ఉందా? <a href="./login.html" style="color: var(--primary); font-weight: bold;">లాగిన్ అవ్వండి</a>
       </p>
     </div>
   </div>
@@ -80,7 +80,7 @@
   
   <script>
   if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js'));
+    window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js'));
   }
   </script>
 </body>

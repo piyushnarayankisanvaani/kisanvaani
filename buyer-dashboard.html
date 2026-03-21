@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>KisanVaani - Buyer Dashboard</title>
   
-  <link rel="manifest" href="/manifest.json">
+  <link rel="manifest" href="./manifest.json">
   <meta name="theme-color" content="#1B4332">
-  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+  <link rel="apple-touch-icon" href="./icons/icon-192.png">
 
-  <link rel="stylesheet" href="css/style.css">
-  <script src="js/app.js"></script>
-  <script src="js/data.js"></script>
-  <script src="js/mandi.js"></script>
+  <link rel="stylesheet" href="./css/style.css">
+  <script src="./js/app.js"></script>
+  <script src="./js/data.js"></script>
+  <script src="./js/mandi.js"></script>
 </head>
 <body>
   <nav class="navbar">
@@ -63,7 +63,7 @@
     <!-- Fresh Listings -->
     <div style="margin-bottom: 20px; display:flex; justify-content:space-between; align-items:center;">
       <h3>తాజా జాబితాలు</h3>
-      <a href="marketplace.html" style="color:var(--primary); font-size:14px; font-weight:700;">అన్నీ చూడండి →</a>
+      <a href="./marketplace.html" style="color:var(--primary); font-size:14px; font-weight:700;">అన్నీ చూడండి →</a>
     </div>
     
     <div class="grid-2" id="fresh-listings-container">
@@ -73,7 +73,7 @@
     <!-- Mandi Preview -->
     <div style="margin-bottom: 20px; display:flex; justify-content:space-between; align-items:center; margin-top:30px;">
       <h3>ఈరోజు ధరలు</h3>
-      <a href="mandi-prices.html" style="color:var(--primary); font-size:14px; font-weight:700;">మరిన్ని →</a>
+      <a href="./mandi-prices.html" style="color:var(--primary); font-size:14px; font-weight:700;">మరిన్ని →</a>
     </div>
     <div class="grid-2" id="mandi-preview">
       <div class="card" style="text-align:center;">లోడ్ అవుతోంది...</div>
@@ -84,16 +84,16 @@
       <h3>సౌకర్యాలు</h3>
     </div>
     <div class="grid-2">
-      <a href="facilities.html#rice" class="card" style="padding:16px; display:flex; align-items:center; gap:10px;">
+      <a href="./facilities.html#rice" class="card" style="padding:16px; display:flex; align-items:center; gap:10px;">
         <span style="font-size:24px;">🏭</span><span style="font-weight:600;">రైస్ మిల్లులు (8)</span>
       </a>
-      <a href="facilities.html#chilli" class="card" style="padding:16px; display:flex; align-items:center; gap:10px;">
+      <a href="./facilities.html#chilli" class="card" style="padding:16px; display:flex; align-items:center; gap:10px;">
         <span style="font-size:24px;">🌶️</span><span style="font-weight:600;">మిర్చి ప్లాంట్స్ (6)</span>
       </a>
-      <a href="facilities.html#cold" class="card" style="padding:16px; display:flex; align-items:center; gap:10px;">
+      <a href="./facilities.html#cold" class="card" style="padding:16px; display:flex; align-items:center; gap:10px;">
         <span style="font-size:24px;">❄️</span><span style="font-weight:600;">కోల్డ్ స్టోరేజ్ (6)</span>
       </a>
-      <a href="facilities.html#cotton" class="card" style="padding:16px; display:flex; align-items:center; gap:10px;">
+      <a href="./facilities.html#cotton" class="card" style="padding:16px; display:flex; align-items:center; gap:10px;">
         <span style="font-size:24px;">🌿</span><span style="font-weight:600;">జిన్నింగ్ మిల్లులు (2)</span>
       </a>
     </div>
@@ -172,7 +172,7 @@
 
   <script>
   if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js'));
+    window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js'));
   }
   </script>
 </body>
