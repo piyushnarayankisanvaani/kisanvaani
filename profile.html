@@ -9,8 +9,266 @@
   <meta name="theme-color" content="#1B4332">
   <link rel="apple-touch-icon" href="./icons/icon-192.png">
 
-  <link rel="stylesheet" href="./css/style.css">
-  <script src="./js/app.js"></script>
+    
+<style>
+/* KisanVaani Global Styles */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --primary: #1B4332;
+  --primary-light: #2D6A4F;
+  --secondary: #F59E0B;
+  --bg-color: #F8FAFC;
+  --text-main: #1E293B;
+  --text-muted: #64748B;
+  --white: #FFFFFF;
+  --border: #E2E8F0;
+  --success: #22C55E;
+  --danger: #EF4444;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Noto Sans Telugu', sans-serif;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  line-height: 1.6;
+  padding-bottom: 80px; /* Space for PWA install banner / footing */
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Navbar */
+.navbar {
+  background: var(--primary);
+  color: var(--white);
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(27, 67, 50, 0.2);
+}
+
+.brand {
+  font-size: 22px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--white);
+}
+
+/* Utilities */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.card {
+  background: var(--white);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+  margin-bottom: 20px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+  font-size: 15px;
+  gap: 8px;
+  text-align: center;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: var(--white);
+}
+
+.btn-primary:active { opacity: 0.9; transform: scale(0.98); }
+
+.btn-secondary {
+  background: var(--secondary);
+  color: #000;
+}
+
+.btn-outline {
+  background: transparent;
+  border: 2px solid var(--primary);
+  color: var(--primary);
+}
+
+.badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.badge-active { background: #DCFCE7; color: #166534; }
+.badge-sold { background: #FEF3C7; color: #92400E; }
+
+/* Dashboard Grids */
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+
+/* Floating Actions */
+.fab-whatsapp {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: #25D366;
+  color: white;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  box-shadow: 0 4px 16px rgba(37,211,102,0.4);
+  z-index: 990;
+  cursor: pointer;
+  border: none;
+}
+
+.fab-mic {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  background: var(--secondary);
+  color: #000;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  box-shadow: 0 4px 16px rgba(245,158,11,0.4);
+  z-index: 990;
+  cursor: pointer;
+  border: none;
+}
+
+/* Forms */
+.form-group {
+  margin-bottom: 16px;
+}
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+.form-control {
+  width: 100%;
+  padding: 14px;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.form-control:focus {
+  border-color: var(--primary);
+}
+
+/* Price ticker */
+.ticker-wrap {
+  background: #000;
+  color: #fff;
+  padding: 4px 0;
+  overflow: hidden;
+  position: relative;
+  white-space: nowrap;
+}
+.ticker {
+  display: inline-block;
+  animation: ticker 25s linear infinite;
+  font-size: 13px;
+  font-weight: 600;
+}
+@keyframes ticker {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+/* Chips */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  background: var(--white);
+  border: 1px solid var(--primary-light);
+  color: var(--primary);
+  padding: 8px 16px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  gap: 6px;
+  cursor: pointer;
+}
+
+/* Toasts */
+#toast-container {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.toast {
+  background: #333;
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  opacity: 0;
+  animation: fadein 0.3s forwards, fadeout 0.3s forwards 2.7s;
+}
+@keyframes fadein { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeout { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-20px); } }
+
+</style>
+<script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
   <nav class="navbar">
@@ -71,5 +329,101 @@
     window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js'));
   }
   </script>
+
+<script>
+// Embedded app.js
+// app.js
+document.addEventListener('DOMContentLoaded', () => {
+  setupNavbar();
+  setupToast();
+  checkAuthDisplays();
+});
+
+function setupNavbar() {
+  // Mobile responsive nav behavior or login state updates
+}
+
+function showToast(message, type = 'info') {
+  let container = document.getElementById('toast-container');
+  if (!container) {
+    container = document.createElement('div');
+    container.id = 'toast-container';
+    document.body.appendChild(container);
+  }
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.innerText = message;
+  
+  if(type === 'success') toast.style.background = '#22C55E';
+  if(type === 'error') toast.style.background = '#EF4444';
+  
+  container.appendChild(toast);
+  setTimeout(() => toast.remove(), 3000);
+}
+
+// Authentication Guards
+function requireFarmerAuth() {
+  const user = JSON.parse(localStorage.getItem('kv_user') || '{}');
+  if (!user.isLoggedIn || user.userType !== 'farmer') {
+    const current = encodeURIComponent(window.location.pathname + window.location.search);
+    window.location.href = 'login.html?redirect=' + current;
+  }
+}
+
+function requireBuyerAuth() {
+  const user = JSON.parse(localStorage.getItem('kv_user') || '{}');
+  if (!user.isLoggedIn || user.userType !== 'buyer') {
+    window.location.href = 'login.html';
+  }
+}
+
+function getUser() {
+  return JSON.parse(localStorage.getItem('kv_user') || '{}');
+}
+
+function loginUser(phone, userType, name, village) {
+  const user = {
+    isLoggedIn: true,
+    phone,
+    userType,
+    name: name || (userType === 'farmer' ? 'రైతు' : 'కొనుగోలుదారు'),
+    village: village || 'ఖమ్మం'
+  };
+  localStorage.setItem('kv_user', JSON.stringify(user));
+  showToast('లాగిన్ విజయవంతమైంది!', 'success');
+}
+
+function logoutUser() {
+  localStorage.removeItem('kv_user');
+  window.location.href = 'index.html';
+}
+
+function checkAuthDisplays() {
+  const user = getUser();
+  const els = document.querySelectorAll('.auth-only');
+  const nonEls = document.querySelectorAll('.no-auth');
+  
+  if (user.isLoggedIn) {
+    els.forEach(el => el.style.display = '');
+    nonEls.forEach(el => el.style.display = 'none');
+    
+    const names = document.querySelectorAll('.user-name-display');
+    names.forEach(n => n.innerText = user.name);
+  } else {
+    els.forEach(el => el.style.display = 'none');
+    nonEls.forEach(el => el.style.display = '');
+  }
+}
+
+function openWhatsAppSupport() {
+  window.open('https://wa.me/919059292300', '_blank');
+}
+
+function openFarmerWhatsApp(farmerPhone, crop) {
+  const message = `నమస్కారం! KisanVaani లో మీ ${crop} జాబితా చూశాను. మాట్లాడవచ్చా?`;
+  window.open(`https://wa.me/91${farmerPhone}?text=${encodeURIComponent(message)}`, '_blank');
+}
+
+</script>
 </body>
 </html>
