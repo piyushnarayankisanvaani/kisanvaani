@@ -288,6 +288,25 @@ a {
     </div>
   </nav>
 
+  <!-- Price Ticker -->
+  <div class="ticker-wrap">
+    <div class="ticker" id="price-ticker">
+      లోడ్ అవుతోంది...
+    </div>
+  </div>\n
+  <div id="univ-nav" style="background:#2D6A4F; overflow-x:auto; white-space:nowrap; padding:10px 20px; color:white; font-size:14px; display:flex; gap:16px; margin-bottom:12px; border-bottom:2px solid #1B4332;">
+    <a href="./index.html" style="text-decoration:none; color:white;">Home</a>
+    <a href="./marketplace.html" style="text-decoration:none; color:white;">Market</a>
+    <a href="./mandi-prices.html" style="text-decoration:none; color:white;">Prices</a>
+    <a href="./facilities.html" style="text-decoration:none; color:white;">Facilities</a>
+    <a href="./weather.html" style="text-decoration:none; color:white;">Weather</a>
+    <a href="./crop-doctor.html" style="text-decoration:none; color:var(--secondary); font-weight:bold;">Doctor 🌿</a>
+    <a href="./govt-schemes.html" style="text-decoration:none; color:white;">Schemes 📋</a>
+    <a href="./crop-calendar.html" style="text-decoration:none; color:white;">Calendar 📅</a>
+    <a href="./expert-help.html" style="text-decoration:none; color:white;">Help 🤝</a>
+  </div>
+
+
   <!-- Hero Section -->
   <div style="background: var(--primary); color: white; padding: 60px 20px; text-align: center;">
     <h1 style="color:white; font-size: 32px; margin-bottom: 16px;">ఖమ్మం రైతుల డిజిటల్ మార్కెట్</h1>
@@ -298,7 +317,37 @@ a {
     </div>
   </div>
 
-  <div class="container">
+  <div class="container">\n
+  <div class="container" style="margin-top:20px;" id="services-grid-module">
+    <h2 style="font-size: 24px; margin-bottom: 16px;">KisanVaani సేవలు</h2>
+    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
+      <a href="./marketplace.html" class="card" style="margin:0; padding:16px; text-decoration:none; display:flex; flex-direction:column; align-items:center; text-align:center; box-shadow:0 4px 10px rgba(0,0,0,0.05);">
+        <span style="font-size:32px;">🛒</span><span style="font-weight:700; font-size:14px; margin-top:8px; color:var(--text-main);">పంట మార్కెట్</span>
+      </a>
+      <a href="./mandi-prices.html" class="card" style="margin:0; padding:16px; text-decoration:none; display:flex; flex-direction:column; align-items:center; text-align:center; box-shadow:0 4px 10px rgba(0,0,0,0.05);">
+        <span style="font-size:32px;">💰</span><span style="font-weight:700; font-size:14px; margin-top:8px; color:var(--text-main);">మండి ధరలు</span>
+      </a>
+      <a href="./facilities.html" class="card" style="margin:0; padding:16px; text-decoration:none; display:flex; flex-direction:column; align-items:center; text-align:center; box-shadow:0 4px 10px rgba(0,0,0,0.05);">
+        <span style="font-size:32px;">🏭</span><span style="font-weight:700; font-size:14px; margin-top:8px; color:var(--text-main);">సౌకర్యాలు</span>
+      </a>
+      <a href="./weather.html" class="card" style="margin:0; padding:16px; text-decoration:none; display:flex; flex-direction:column; align-items:center; text-align:center; box-shadow:0 4px 10px rgba(0,0,0,0.05);">
+        <span style="font-size:32px;">🌦️</span><span style="font-weight:700; font-size:14px; margin-top:8px; color:var(--text-main);">వాతావరణం</span>
+      </a>
+      <a href="./crop-doctor.html" class="card" style="margin:0; padding:16px; text-decoration:none; display:flex; flex-direction:column; align-items:center; text-align:center; box-shadow:0 4px 10px rgba(0,0,0,0.05);">
+        <span style="font-size:32px;">🌿</span><span style="font-weight:700; font-size:14px; margin-top:8px; color:var(--text-main);">పంట వైద్యుడు</span>
+      </a>
+      <a href="./govt-schemes.html" class="card" style="margin:0; padding:16px; text-decoration:none; display:flex; flex-direction:column; align-items:center; text-align:center; box-shadow:0 4px 10px rgba(0,0,0,0.05);">
+        <span style="font-size:32px;">📋</span><span style="font-weight:700; font-size:14px; margin-top:8px; color:var(--text-main);">ప్రభుత్వ పథకాలు</span>
+      </a>
+      <a href="./crop-calendar.html" class="card" style="margin:0; padding:16px; text-decoration:none; display:flex; flex-direction:column; align-items:center; text-align:center; box-shadow:0 4px 10px rgba(0,0,0,0.05);">
+        <span style="font-size:32px;">📅</span><span style="font-weight:700; font-size:14px; margin-top:8px; color:var(--text-main);">పంట క్యాలెండర్</span>
+      </a>
+      <a href="./expert-help.html" class="card" style="margin:0; padding:16px; text-decoration:none; display:flex; flex-direction:column; align-items:center; text-align:center; box-shadow:0 4px 10px rgba(0,0,0,0.05);">
+        <span style="font-size:32px;">🤝</span><span style="font-weight:700; font-size:14px; margin-top:8px; color:var(--text-main);">నిపుణుల సహాయం</span>
+      </a>
+    </div>
+  </div>
+
     <!-- Features -->
     <div class="grid-2" style="margin-top: 40px;">
       <div class="card" style="text-align:center;">
@@ -821,6 +870,17 @@ async function fetchMandiPrices() {
     }
   }
 }
+
+window.renderPrices = function(crops, isCached) {
+  // CORRECT VERSION (No \n)
+  const tickerText = crops.map(c => 
+    c.emoji + ' ' + (c.cropTe || c.crop) + ' ₹' + (c.modal || c.price) + '/కేజీ'
+  ).join(' • ');
+  const el = document.getElementById('price-ticker');
+  if (el) {
+    el.innerText = tickerText;
+  }
+};
 
 document.addEventListener('DOMContentLoaded', () => {
     setInterval(fetchMandiPrices, 60000);

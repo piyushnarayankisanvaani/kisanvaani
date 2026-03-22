@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KisanVaani - Input Shops</title>
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#1B4332">
+  <link rel="apple-touch-icon" href="./icons/icon-192.png">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;500;600;700;800&display=swap');
+:root { --primary:#1B4332; --secondary:#F59E0B; --bg-color:#F8FAFC; --text-muted:#64748B; --border:#E2E8F0; }
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Noto Sans Telugu', sans-serif;}
+body { background: var(--bg-color); color: #1E293B; padding-bottom: 80px; }
+.navbar { background: var(--primary); padding: 16px 20px; color: white;}
+.container { max-width: 800px; margin: 0 auto; padding: 20px; }
+.card { background: white; border-radius: 16px; padding: 20px; box-shadow: 0 4px 16px rgba(0,0,0,0.05); margin-bottom: 20px; }
+.btn { border: none; padding: 12px 24px; border-radius: 12px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; text-decoration: none; font-size:15px; width:100%;}
+.btn-primary { background: var(--primary); color: white; }
+.form-control { width: 100%; padding: 14px; border: 2px solid var(--border); border-radius: 12px; font-size: 15px; margin-bottom:12px;}
+.chip-filter { display:inline-block; padding:8px 16px; border:1px solid var(--border); border-radius:30px; margin-right:8px; margin-bottom:12px; cursor:pointer; font-size:14px; background:white; white-space:nowrap;}
+.chip-filter.active { background:var(--primary); color:white; border-color:var(--primary); font-weight:bold;}
+.shop-card { border-left:6px solid var(--primary); margin-bottom:16px; padding-bottom:16px; border-bottom:1px solid var(--border);}
+.shop-card:last-child { border-bottom:none; margin-bottom:0; padding-bottom:0;}
+.item-chip { display:inline-block; background:#F0FDF4; color:#166534; padding:4px 8px; border-radius:4px; font-size:12px; margin-right:4px; margin-top:4px;}
+.fab-whatsapp { position: fixed; bottom: 24px; right: 24px; background: #25D366; color: white; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; border: none; z-index:990; }
+</style>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+
+  <nav class="navbar" style="display:flex; justify-content:space-between;">
+    <div style="font-weight:800; font-size:20px;">🏪 వ్యవసాయ దుకాణాలు</div>
+    <a href="./index.html" style="color:white;">Home</a>
+  </nav>
+
+  
+  <div id="univ-nav" style="background:#2D6A4F; overflow-x:auto; white-space:nowrap; padding:10px 20px; color:white; font-size:14px; display:flex; gap:16px; margin-bottom:12px; border-bottom:2px solid #1B4332;">
+    <a href="./index.html" style="text-decoration:none; color:white;">Home</a>
+    <a href="./marketplace.html" style="text-decoration:none; color:white;">Market</a>
+    <a href="./mandi-prices.html" style="text-decoration:none; color:white;">Prices</a>
+    <a href="./facilities.html" style="text-decoration:none; color:white;">Facilities</a>
+    <a href="./weather.html" style="text-decoration:none; color:white;">Weather</a>
+    <a href="./crop-doctor.html" style="text-decoration:none; color:var(--secondary); font-weight:bold;">Doctor 🌿</a>
+    <a href="./govt-schemes.html" style="text-decoration:none; color:white;">Schemes 📋</a>
+    <a href="./crop-calendar.html" style="text-decoration:none; color:white;">Calendar 📅</a>
+    <a href="./expert-help.html" style="text-decoration:none; color:white;">Help 🤝</a>
+  </div>
+
+
+  <div class="container">
+    <div style="margin-bottom:24px; text-align:center;">
+      <h2 style="font-size:24px; margin-bottom:4px;">విత్తనాలు & ఎరువులు</h2>
+      <p style="color:var(--text-muted); font-size:15px;">ఖమ్మం జిల్లాలో వ్యవసాయ సామగ్రి దుకాణాలు</p>
+    </div>
+
+    <input type="text" class="form-control" placeholder="🔍 గ్రామం లేదా దుకాణం పేరుతో వెతకండి" id="search-bar" onkeyup="filterShops()">
+
+    <div style="overflow-x:auto; white-space:nowrap; margin-bottom:8px; padding-bottom:4px;" id="filters">
+      <span class="chip-filter active" onclick="setFilter('all', this)">అన్నీ (All)</span>
+      <span class="chip-filter" onclick="setFilter('seeds', this)">విత్తనాలు</span>
+      <span class="chip-filter" onclick="setFilter('fertilizers', this)">ఎరువులు</span>
+      <span class="chip-filter" onclick="setFilter('pesticides', this)">పురుగుమందులు</span>
+      <span class="chip-filter" onclick="setFilter('machinery', this)">యంత్రాలు</span>
+    </div>
+
+    <div class="card" id="shops-list">
+      <!-- Generated via JS -->
+    </div>
+
+    <div class="card" style="background:#F0FDF4; border:1px solid #22C55E;">
+      <h3 style="font-size:16px; margin-bottom:12px;">మీ దుకాణం యాడ్ చేయండి</h3>
+      <input type="text" id="s-name" class="form-control" placeholder="దుకాణం పేరు">
+      <input type="text" id="s-village" class="form-control" placeholder="గ్రామం (ఉదా: ఖమ్మం సిటీ)">
+      <input type="tel" id="s-phone" class="form-control" placeholder="మొబైల్ నంబర్">
+      <button class="btn" style="background:#22C55E; color:white;" onclick="addShop()">నమోదు చేయండి</button>
+    </div>
+
+  </div>
+  
+  <button class="fab-whatsapp" onclick="window.open('https://wa.me/919059292300', '_blank')">💬</button>
+
+<script>
+let currentFilter = 'all';
+
+const HARDCODED_SHOPS = [
+  { name: 'శ్రీ వెంకటేశ్వర విత్తన కేంద్రం', owner:'రామారావు', village:'ఖమ్మం బస్టాండ్ దగ్గర', phone:'9000112233', type:['seeds', 'fertilizers'], items:['విత్తనాలు', 'ఎరువులు'], time:'8am-8pm' },
+  { name: 'కిసాన్ ఆగ్రో ఏజెన్సీ', owner:'సోమయ్య', village:'కూసుమంచి', phone:'9888123456', type:['pesticides', 'fertilizers'], items:['పురుగుమందులు', 'యూరియా'], time:'9am-7pm' },
+  { name: 'రైతు మిత్ర సీడ్స్', owner:'లక్ష్మణ్', village:'నేలకొండపల్లి', phone:'9444332211', type:['seeds'], items:['పత్తి విత్తనాలు', 'మిర్చి విత్తనాలు'], time:'7am-8pm' },
+  { name: 'సాయి ట్రాక్టర్స్ & మోటార్స్', owner:'రవి', village:'కల్లూరు', phone:'9111335577', type:['machinery'], items:['ట్రాక్టర్ వస్తువులు', 'స్ప్రేయర్లు'], time:'9am-6pm' },
+  { name: 'లక్ష్మి ఫెర్టిలైజర్స్', owner:'సుబ్బారావు', village:'సత్తుపల్లి', phone:'9999888877', type:['fertilizers', 'pesticides'], items:['DAP', 'పొటాష్', 'మందులు'], time:'8am-8pm' },
+  { name: 'ఖమ్మం ఆగ్రో టెక్', owner:'మురళి', village:'వైరా రోడ్, ఖమ్మం', phone:'9059292300', type:['seeds', 'machinery'], items:['హైబ్రిడ్ విత్తనాలు', 'చిన్న యంత్రాలు'], time:'10am-8pm' }
+];
+
+function setFilter(type, el) {
+  currentFilter = type;
+  document.querySelectorAll('.chip-filter').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  filterShops();
+}
+
+function filterShops() {
+  const term = document.getElementById('search-bar').value.toLowerCase();
+  const saved = JSON.parse(localStorage.getItem('kv_shops') || '[]');
+  const all = [...saved, ...HARDCODED_SHOPS];
+  
+  const filtered = all.filter(s => {
+    const textMatch = s.name.toLowerCase().includes(term) || s.village.toLowerCase().includes(term);
+    const typeMatch = currentFilter === 'all' || s.type.includes(currentFilter);
+    return textMatch && typeMatch;
+  });
+  
+  document.getElementById('shops-list').innerHTML = filtered.map(s => `
+    <div class="shop-card">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+        <div>
+          <h3 style="font-size:18px;">${s.name}</h3>
+          <p style="color:var(--text-muted); font-size:13px; margin-top:2px;">👤 ${s.owner || 'ఓనర్'} • 📍 ${s.village}</p>
+        </div>
+      </div>
+      <div style="margin-top:8px;">
+        ${s.items.map(i => `<span class="item-chip">${i}</span>`).join('')}
+      </div>
+      <p style="color:var(--text-muted); font-size:12px; margin-top:8px;">⏰ పని వేళలు: ${s.time || '8am-8pm'}</p>
+      
+      <div style="display:flex; gap:12px; margin-top:12px;">
+        <a href="tel:${s.phone}" class="btn" style="flex:1; background:#E2E8F0; color:black; height:40px;">📞 కాల్ సెయ్యండి</a>
+        <a href="https://wa.me/91${s.phone}?text=నమస్కారం! మీ షాప్ లో వ్యవసాయ సామగ్రి గురించి అడగాలి." target="_blank" class="btn" style="background:#25D366; color:white; width:48px; height:40px; padding:0;">💬</a>
+      </div>
+    </div>
+  `).join('');
+  
+  if (filtered.length === 0) {
+    document.getElementById('shops-list').innerHTML = '<div style="text-align:center; padding:20px; color:var(--text-muted);">దుకాణాలు దొరకలేదు.</div>';
+  }
+}
+
+function addShop() {
+  const name = document.getElementById('s-name').value;
+  const village = document.getElementById('s-village').value;
+  const phone = document.getElementById('s-phone').value;
+  
+  if(!name || !village || !phone) return;
+  const s = { name, owner: 'కొత్త దుకాణం', village, phone, type: ['seeds', 'fertilizers'], items: ['అన్ని అందుబాటులో ఉన్నాయి'], time: '8am-8pm'};
+  const arr = JSON.parse(localStorage.getItem('kv_shops') || '[]');
+  arr.unshift(s);
+  localStorage.setItem('kv_shops', JSON.stringify(arr));
+  
+  document.getElementById('s-name').value=''; document.getElementById('s-village').value=''; document.getElementById('s-phone').value='';
+  filterShops();
+}
+
+window.onload = filterShops;
+</script>
+</body>
+</html>

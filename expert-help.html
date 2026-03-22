@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KisanVaani - Expert Help</title>
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#1B4332">
+  <link rel="apple-touch-icon" href="./icons/icon-192.png">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;500;600;700;800&display=swap');
+:root { --primary:#1B4332; --secondary:#F59E0B; --bg-color:#F8FAFC; --text-muted:#64748B; --border:#E2E8F0; }
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Noto Sans Telugu', sans-serif;}
+body { background: var(--bg-color); color: #1E293B; padding-bottom: 80px; }
+.navbar { background: var(--primary); padding: 16px 20px; color: white;}
+.container { max-width: 800px; margin: 0 auto; padding: 20px; }
+.card { background: white; border-radius: 16px; padding: 20px; box-shadow: 0 4px 16px rgba(0,0,0,0.05); margin-bottom: 20px; }
+.btn { border: none; padding: 12px 24px; border-radius: 12px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; text-decoration: none; width:100%; font-size:15px;}
+.qa-card { border-bottom:1px solid var(--border); padding-bottom:16px; margin-bottom:16px; }
+.qa-card:last-child { border-bottom:none; padding-bottom:0; margin-bottom:0; }
+.q-title { font-weight:700; font-size:16px; color:var(--primary); margin-bottom:8px;}
+.a-text { color:var(--text-muted); font-size:14px; line-height:1.6; }
+.form-control { width:100%; padding:14px; border:2px solid var(--border); border-radius:12px; font-size:15px; margin-bottom:12px; resize:vertical; min-height:80px; }
+.fab-whatsapp { position: fixed; bottom: 24px; right: 24px; background: #25D366; color: white; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; border: none; z-index:990; }
+</style>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+
+  <nav class="navbar" style="display:flex; justify-content:space-between;">
+    <div style="font-weight:800; font-size:20px;">🤝 నిపుణుల సహాయం</div>
+    <a href="./index.html" style="color:white;">Home</a>
+  </nav>
+
+  
+  <div id="univ-nav" style="background:#2D6A4F; overflow-x:auto; white-space:nowrap; padding:10px 20px; color:white; font-size:14px; display:flex; gap:16px; margin-bottom:12px; border-bottom:2px solid #1B4332;">
+    <a href="./index.html" style="text-decoration:none; color:white;">Home</a>
+    <a href="./marketplace.html" style="text-decoration:none; color:white;">Market</a>
+    <a href="./mandi-prices.html" style="text-decoration:none; color:white;">Prices</a>
+    <a href="./facilities.html" style="text-decoration:none; color:white;">Facilities</a>
+    <a href="./weather.html" style="text-decoration:none; color:white;">Weather</a>
+    <a href="./crop-doctor.html" style="text-decoration:none; color:var(--secondary); font-weight:bold;">Doctor 🌿</a>
+    <a href="./govt-schemes.html" style="text-decoration:none; color:white;">Schemes 📋</a>
+    <a href="./crop-calendar.html" style="text-decoration:none; color:white;">Calendar 📅</a>
+    <a href="./expert-help.html" style="text-decoration:none; color:white;">Help 🤝</a>
+  </div>
+
+
+  <div class="container">
+    <div style="margin-bottom:24px; text-align:center;">
+      <h2 style="font-size:24px; margin-bottom:4px;">తెలుగు నిపుణుల సహాయం</h2>
+      <p style="color:var(--text-muted); font-size:15px;">వాట్సాప్ ద్వారా నిపుణులను నేరుగా సంప్రదించండి</p>
+    </div>
+
+    <!-- Contact Cards based on WhatsApp Prompts -->
+    <div class="card" style="border-left:8px solid var(--primary);">
+      <div style="display:flex; align-items:center; gap:16px; margin-bottom:16px;">
+        <div style="font-size:40px;">👨‍🌾</div>
+        <div>
+          <h3 style="font-size:18px;">వ్యవసాయ నిపుణుడు</h3>
+          <p style="color:var(--text-muted); font-size:13px;">పంట సమస్యలకు తక్షణ సహాయం. వాట్సాప్‌లో ఫోటోలు పంపండి.</p>
+        </div>
+      </div>
+      <a href="https://wa.me/919059292300?text=నమస్కారం!%20నా%20పంటకు%20సహాయం%20కావాలి." target="_blank" class="btn" style="background:#25D366; color:white;">
+        <span style="font-size:20px; margin-right:8px;">💬</span> WhatsApp చేయండి
+      </a>
+    </div>
+
+    <div class="card" style="border-left:8px solid var(--secondary);">
+      <div style="display:flex; align-items:center; gap:16px; margin-bottom:16px;">
+        <div style="font-size:40px;">💰</div>
+        <div>
+          <h3 style="font-size:18px;">మండి సలహాదారు (Mandi)</h3>
+          <p style="color:var(--text-muted); font-size:13px;">పంట ఎప్పుడు అమ్మాలో తెలుసుకోండి, ధర అంచనా.</p>
+        </div>
+      </div>
+      <a href="https://wa.me/919059292300?text=మండి%20ధర%20సలహా%20కావాలి" target="_blank" class="btn" style="background:#25D366; color:white;">
+        <span style="font-size:20px; margin-right:8px;">💬</span> WhatsApp చేయండి
+      </a>
+    </div>
+
+    <div class="card" style="border-left:8px solid #3B82F6;">
+      <div style="display:flex; align-items:center; gap:16px; margin-bottom:16px;">
+        <div style="font-size:40px;">🌦️</div>
+        <div>
+          <h3 style="font-size:18px;">వాతావరణ సలహాదారు</h3>
+          <p style="color:var(--text-muted); font-size:13px;">నేటి వాతావరణం ఆధారంగా పొలం పనులపై సూచనలు.</p>
+        </div>
+      </div>
+      <a href="https://wa.me/919059292300?text=వాతావరణ%20సలహా%20కావాలి" target="_blank" class="btn" style="background:#25D366; color:white;">
+        <span style="font-size:20px; margin-right:8px;">💬</span> WhatsApp చేయండి
+      </a>
+    </div>
+
+    <!-- Community Q&A -->
+    <h3 style="margin-top:32px; margin-bottom:12px;">రైతుల ప్రశ్నలు (Community Q&A)</h3>
+    <div class="card" id="qa-container">
+      <div class="qa-card">
+        <div class="q-title">Q: వరి పంటకు ఎంత నీరు పెట్టాలి?</div>
+        <div class="a-text">A: ట్రాన్స్ప్లాంటింగ్ తర్వాత 2-3 సెం.మీ నీరు నిలవాలి. పూత దశలో నీరు ఆపకూడదు. 80% పండిన తర్వాత నీరు ఆపవచ్చు.</div>
+      </div>
+      <div class="qa-card">
+        <div class="q-title">Q: మిర్చిలో వైరస్ వచ్చిందని ఎలా తెలుసుకోవాలి?</div>
+        <div class="a-text">A: ఆకులు మెలికలు తిరగడం, పసుపు పడడం, చిన్నవి అవడం — ఇవి వైరస్ లక్షణాలు. వెంటనే నిపుణుడిని సంప్రదించండి.</div>
+      </div>
+      <div class="qa-card">
+        <div class="q-title">Q: పత్తికి మొదట ఏ ఎరువు వేయాలి?</div>
+        <div class="a-text">A: విత్తే సమయంలో ఎకరాకు 2 బస్తాల DAP + 1 బస్తా Potash. 30 రోజుల తర్వాత యూరియా 25kg/ఎకరా.</div>
+      </div>
+      <div class="qa-card">
+        <div class="q-title">Q: PM కిసాన్ డబ్బులు ఎందుకు రాలేదు?</div>
+        <div class="a-text">A: Aadhaar seeding bank account లో అయిందో చూడండి. pmkisan.gov.in లో status check చేయండి.</div>
+      </div>
+    </div>
+
+    <div class="card" style="background:#F0FDF4; border:1px solid var(--primary);">
+      <h3 style="font-size:16px; margin-bottom:12px;">కొత్త ప్రశ్న అడగండి</h3>
+      <textarea id="val-q" class="form-control" placeholder="మీ వ్యవసాయ సమస్యను ఇక్కడ టైప్ చేయండి..."></textarea>
+      <button class="btn" style="background:var(--primary); color:white;" onclick="askQuestion()">పంపండి</button>
+      <div id="q-success" style="display:none; color:var(--success); font-weight:bold; margin-top:12px; font-size:14px;">
+        ✅ మీ ప్రశ్న నమోదైంది! మీకు త్వరలో సమాధానం ఇవ్వబడుతుంది.
+      </div>
+    </div>
+
+  </div>
+
+<script>
+function askQuestion() {
+  const q = document.getElementById('val-q').value;
+  if(q.trim() === '') return;
+  document.getElementById('val-q').value = '';
+  document.getElementById('q-success').style.display = 'block';
+  
+  // Basic local UI addition
+  const el = document.createElement('div');
+  el.className = 'qa-card';
+  el.innerHTML = '<div class="q-title">Q: ' + q + '</div><div class="a-text" style="color:var(--secondary); font-weight:bold;">A: పరిశీలిస్తున్నాము... (Waiting for expert)</div>';
+  document.getElementById('qa-container').prepend(el);
+}
+</script>
+</body>
+</html>

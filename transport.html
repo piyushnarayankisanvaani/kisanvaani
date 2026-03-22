@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KisanVaani - Transport</title>
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#1B4332">
+  <link rel="apple-touch-icon" href="./icons/icon-192.png">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;500;600;700;800&display=swap');
+:root { --primary:#1B4332; --secondary:#F59E0B; --bg-color:#F8FAFC; --text-muted:#64748B; --border:#E2E8F0; }
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Noto Sans Telugu', sans-serif;}
+body { background: var(--bg-color); color: #1E293B; padding-bottom: 80px; }
+.navbar { background: var(--primary); padding: 16px 20px; color: white;}
+.container { max-width: 800px; margin: 0 auto; padding: 20px; }
+.card { background: white; border-radius: 16px; padding: 20px; box-shadow: 0 4px 16px rgba(0,0,0,0.05); margin-bottom: 20px; }
+.btn { border: none; padding: 12px 24px; border-radius: 12px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; text-decoration: none; width:100%; font-size:15px;}
+.form-control { width: 100%; padding: 14px; border: 2px solid var(--border); border-radius: 12px; font-size: 15px; margin-bottom:12px;}
+.fab-whatsapp { position: fixed; bottom: 24px; right: 24px; background: #25D366; color: white; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; border: none; z-index:990; }
+.driver-card { display:flex; justify-content:space-between; align-items:center; padding-bottom:16px; border-bottom:1px solid var(--border); margin-bottom:16px;}
+.driver-card:last-child { border-bottom:none; margin-bottom:0; padding-bottom:0;}
+</style>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+
+  <nav class="navbar" style="display:flex; justify-content:space-between;">
+    <div style="font-weight:800; font-size:20px;">🚛 రవాణా సహాయం</div>
+    <a href="./index.html" style="color:white;">Home</a>
+  </nav>
+
+  
+  <div id="univ-nav" style="background:#2D6A4F; overflow-x:auto; white-space:nowrap; padding:10px 20px; color:white; font-size:14px; display:flex; gap:16px; margin-bottom:12px; border-bottom:2px solid #1B4332;">
+    <a href="./index.html" style="text-decoration:none; color:white;">Home</a>
+    <a href="./marketplace.html" style="text-decoration:none; color:white;">Market</a>
+    <a href="./mandi-prices.html" style="text-decoration:none; color:white;">Prices</a>
+    <a href="./facilities.html" style="text-decoration:none; color:white;">Facilities</a>
+    <a href="./weather.html" style="text-decoration:none; color:white;">Weather</a>
+    <a href="./crop-doctor.html" style="text-decoration:none; color:var(--secondary); font-weight:bold;">Doctor 🌿</a>
+    <a href="./govt-schemes.html" style="text-decoration:none; color:white;">Schemes 📋</a>
+    <a href="./crop-calendar.html" style="text-decoration:none; color:white;">Calendar 📅</a>
+    <a href="./expert-help.html" style="text-decoration:none; color:white;">Help 🤝</a>
+  </div>
+
+
+  <div class="container">
+    <div style="margin-bottom:24px; text-align:center;">
+      <h2 style="font-size:24px; margin-bottom:4px;">పంట రవాణా, ట్రాక్టర్లు</h2>
+      <p style="color:var(--text-muted); font-size:15px;">పంటను మండికి తీసుకెళ్ళడానికి వాహనాలు (ఖమ్మం)</p>
+    </div>
+
+    <!-- Calculator -->
+    <div class="card" style="background:#FFFBEB; border:1px solid #FDE68A;">
+      <h3 style="font-size:16px; margin-bottom:12px;">ఖర్చు అంచనా వేయండి</h3>
+      <div style="display:flex; gap:12px;">
+        <select class="form-control" style="flex:1;" id="distance" onchange="calcPrice()">
+          <option value="10">ఖమ్మం చుట్టుపక్కల (10km)</option>
+          <option value="25">కూసుమంచి, నేలకొండపల్లి (25km)</option>
+          <option value="50">మధిర, సత్తుపల్లి (50km)</option>
+        </select>
+        <select class="form-control" style="flex:1;" id="vehicle" onchange="calcPrice()">
+          <option value="600">ట్రాక్టర్ (Tractor) - 3 టన్నులు</option>
+          <option value="800">మినీ ట్రక్ (Tata Ace) - 1.5 టన్ను</option>
+          <option value="1500">లారీ (Lorry) - 10 టన్నులు</option>
+        </select>
+      </div>
+      <div id="est-cost" style="font-size:18px; font-weight:bold; color:var(--primary); text-align:center; padding-top:8px;">సుమారు ఖర్చు: ₹600</div>
+    </div>
+
+    <!-- Drivers List -->
+    <h3 style="margin-top:24px; margin-bottom:12px;">స్థానిక వాహనాలు</h3>
+    <div class="card" id="transport-list">
+      <!-- Generated via JS -->
+    </div>
+
+    <!-- Add your own -->
+    <div class="card">
+      <h3 style="font-size:16px; margin-bottom:12px;">మీ వాహనం వివరాలు నమోదు చేయండి</h3>
+      <input type="text" id="t-name" class="form-control" placeholder="డ్రైవర్ పేరు / ట్రాన్స్పోర్ట్ పేరు">
+      <input type="text" id="t-vehicle" class="form-control" placeholder="వాహనం (ఉదా: మహీంద్రా ట్రాక్టర్)">
+      <input type="tel" id="t-phone" class="form-control" placeholder="మొబైల్ నంబర్">
+      <button class="btn" style="background:var(--primary); color:white;" onclick="addTransport()">నమోదు చేయండి</button>
+    </div>
+
+  </div>
+
+  <button class="fab-whatsapp" onclick="window.open('https://wa.me/919059292300', '_blank')">💬</button>
+
+<script>
+const HARDCODED_TRANSPORTERS = [
+  { name: 'రాజేష్ ట్రాన్స్పోర్ట్', vehicle: 'ట్రాక్టర్ (Tractor)', area: 'ఖమ్మం రూరల్', phone: '9000123456' },
+  { name: 'సాయి మినీ ట్రక్స్', vehicle: 'టాటా ఏస్ (Tata Ace)', area: 'కూసుమంచి, పాలేరు', phone: '9888776655' },
+  { name: 'వెంకటేశ్వర లారీ', vehicle: 'లారీ (10 టన్నులు)', area: 'సత్తుపల్లి, మధిర', phone: '9444332211' },
+  { name: 'శ్రీనివాస్ ట్రాక్టర్', vehicle: 'జాన్ డియర్ ట్రాక్టర్', area: 'నేలకొండపల్లి', phone: '9111223344' },
+  { name: 'Khammam Goods Movers', vehicle: 'మినీ ట్రక్ + లారీ', area: 'కల్లూరు, ఎన్కూరు', phone: '9000998877' }
+];
+
+function calcPrice() {
+  const dist = parseFloat(document.getElementById('distance').value);
+  const v = parseFloat(document.getElementById('vehicle').value); // Base rate
+  const res = v + (dist * 15);
+  document.getElementById('est-cost').innerText = `సుమారు ఖర్చు: ₹${Math.floor(res)}`;
+}
+
+function renderList() {
+  const saved = JSON.parse(localStorage.getItem('kv_transport') || '[]');
+  const all = [...saved, ...HARDCODED_TRANSPORTERS];
+  
+  document.getElementById('transport-list').innerHTML = all.map(t => `
+    <div class="driver-card">
+      <div>
+        <div style="font-weight:700; font-size:16px;">${t.name}</div>
+        <div style="color:var(--text-muted); font-size:13px; margin-top:4px;">🚚 ${t.vehicle}</div>
+        <div style="color:var(--text-muted); font-size:13px; margin-top:2px;">📍 ${t.area}</div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <a href="tel:${t.phone}" class="btn" style="background:#E2E8F0; color:black; height:36px; padding:0 16px;">📞 కాల్</a>
+        <a href="https://wa.me/91${t.phone}?text=నమస్కారం! పంట తీసుకెళ్లడానికి మీ వాహనం కావాలి." target="_blank" class="btn" style="background:#25D366; color:white; height:36px; padding:0 16px;">💬</a>
+      </div>
+    </div>
+  `).join('');
+}
+
+function addTransport() {
+  const name = document.getElementById('t-name').value;
+  const vehicle = document.getElementById('t-vehicle').value;
+  const phone = document.getElementById('t-phone').value;
+  
+  if(!name || !vehicle || !phone) return;
+  const t = { name, vehicle, area: 'ఖమ్మం పరిసరాలు', phone };
+  const s = JSON.parse(localStorage.getItem('kv_transport') || '[]');
+  s.unshift(t);
+  localStorage.setItem('kv_transport', JSON.stringify(s));
+  
+  document.getElementById('t-name').value=''; document.getElementById('t-phone').value=''; document.getElementById('t-vehicle').value='';
+  renderList();
+}
+
+window.onload = renderList;
+</script>
+</body>
+</html>

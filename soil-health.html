@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KisanVaani - Soil Health Checker</title>
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#1B4332">
+  <link rel="apple-touch-icon" href="./icons/icon-192.png">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;500;600;700;800&display=swap');
+:root { --primary:#1B4332; --secondary:#F59E0B; --bg-color:#F8FAFC; --text-muted:#64748B; --border:#E2E8F0; }
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Noto Sans Telugu', sans-serif;}
+body { background: var(--bg-color); color: #1E293B; padding-bottom: 80px; }
+.navbar { background: var(--primary); padding: 16px 20px; color: white;}
+.container { max-width: 800px; margin: 0 auto; padding: 20px; }
+.card { background: white; border-radius: 16px; padding: 20px; box-shadow: 0 4px 16px rgba(0,0,0,0.05); margin-bottom: 20px; }
+.btn { border: none; padding: 12px 24px; border-radius: 12px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; text-decoration: none; width:100%; font-size:15px;}
+.q-title { font-weight:700; font-size:16px; margin-bottom:12px; }
+.radio-group label { display:block; padding:12px; border:1px solid var(--border); border-radius:12px; margin-bottom:8px; display:flex; gap:12px; align-items:center; cursor:pointer;}
+.radio-group input { width:20px; height:20px; accent-color:var(--primary); }
+input[type="number"] { width:100%; padding:14px; border:2px solid var(--border); border-radius:12px; font-size:15px;}
+.fab-whatsapp { position: fixed; bottom: 24px; right: 24px; background: #25D366; color: white; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; border: none; z-index:990; }
+</style>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+
+  <nav class="navbar" style="display:flex; justify-content:space-between;">
+    <div style="font-weight:800; font-size:20px;">🌱 నేల ఆరోగ్య పరీక్ష</div>
+    <a href="./index.html" style="color:white;">Home</a>
+  </nav>
+
+  
+  <div id="univ-nav" style="background:#2D6A4F; overflow-x:auto; white-space:nowrap; padding:10px 20px; color:white; font-size:14px; display:flex; gap:16px; margin-bottom:12px; border-bottom:2px solid #1B4332;">
+    <a href="./index.html" style="text-decoration:none; color:white;">Home</a>
+    <a href="./marketplace.html" style="text-decoration:none; color:white;">Market</a>
+    <a href="./mandi-prices.html" style="text-decoration:none; color:white;">Prices</a>
+    <a href="./facilities.html" style="text-decoration:none; color:white;">Facilities</a>
+    <a href="./weather.html" style="text-decoration:none; color:white;">Weather</a>
+    <a href="./crop-doctor.html" style="text-decoration:none; color:var(--secondary); font-weight:bold;">Doctor 🌿</a>
+    <a href="./govt-schemes.html" style="text-decoration:none; color:white;">Schemes 📋</a>
+    <a href="./crop-calendar.html" style="text-decoration:none; color:white;">Calendar 📅</a>
+    <a href="./expert-help.html" style="text-decoration:none; color:white;">Help 🤝</a>
+  </div>
+
+
+  <div class="container">
+    <div style="margin-bottom:24px; text-align:center;">
+      <h2 style="font-size:24px; margin-bottom:4px;">మీ పొలం నేల నాణ్యత తెలుసుకోండి</h2>
+      <p style="color:var(--text-muted); font-size:15px;">ఈ 4 సులభమైన ప్రశ్నలకు సమాధానం ఇవ్వండి.</p>
+    </div>
+
+    <div id="quiz-section">
+      <div class="card">
+        <div class="q-title">1. మీ నేల రంగు ఏది?</div>
+        <div class="radio-group">
+          <label><input type="radio" name="q1" value="black"> నల్లగా (Black Cotton Soil)</label>
+          <label><input type="radio" name="q1" value="red"> ఎర్రగా (Red / Laterite)</label>
+          <label><input type="radio" name="q1" value="brown"> గోధుమ రంగు (Alluvial)</label>
+          <label><input type="radio" name="q1" value="white"> తెల్లగా (Alkaline)</label>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="q-title">2. నేల తడిగా ఉన్నప్పుడు చేతికి ఎలా ఉంటుంది?</div>
+        <div class="radio-group">
+          <label><input type="radio" name="q2" value="sticky"> అంటుకుంటుంది (బంక మట్టిలా)</label>
+          <label><input type="radio" name="q2" value="sandy"> ఇసుకలా (పొడిగా జారిపోతుంది)</label>
+          <label><input type="radio" name="q2" value="loamy"> మధ్యస్థంగా (ఆరోగ్యకరమైనది)</label>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="q-title">3. నేల pH ఎంత? (తెలిస్తే రాయండి)</div>
+        <input type="number" id="q3" min="4" max="10" step="0.1" placeholder="ఉదా: 6.5 (లేదా వదిలేయండి)">
+      </div>
+      
+      <div class="card">
+        <div class="q-title">4. ప్రస్తుతం పంట ఎలా పెరుగుతోంది?</div>
+        <div class="radio-group">
+          <label><input type="radio" name="q4" value="good"> బాగా పెరుగుతోంది</label>
+          <label><input type="radio" name="q4" value="mid"> కొంచెం తక్కువ పెరుగుతోంది</label>
+          <label><input type="radio" name="q4" value="bad"> అసలు పెరగడం లేదు / పసుపు పడుతోంది</label>
+        </div>
+      </div>
+      
+      <button class="btn" style="background:var(--primary); color:white; height:52px;" onclick="calculateSoil()">రిపోర్ట్ చూడండి</button>
+    </div>
+
+    <div id="result-section" style="display:none;">
+      <div class="card" style="border:2px solid var(--secondary);">
+        <h3 style="font-size:20px; color:var(--primary); margin-bottom:12px; display:flex; gap:8px; align-items:center;">
+          <span>📊</span> మీ నేల రిపోర్ట్
+        </h3>
+        <p id="res-desc" style="font-size:15px; line-height:1.8; margin-bottom:16px;">
+          (రిపోర్ట్ ఇక్కడ వస్తుంది)
+        </p>
+        
+        <div style="background:#FFFBEB; padding:16px; border-radius:12px; border:1px solid #FDE68A; margin-bottom:16px;">
+          <h4 style="color:#92400E; margin-bottom:8px; font-size:16px;">💡 ఎరువుల సూచన:</h4>
+          <ul style="padding-left:20px; color:#B45309; font-size:14px;" id="res-fert">
+            <li>ఎకరాకు 2 ట్రాక్టర్ load పశువుల ఎరువు</li>
+            <li>DAP 50kg + Potash 25kg విత్తే ముందు</li>
+          </ul>
+        </div>
+        
+        <button class="btn" style="background:var(--primary); color:white;" onclick="window.location.reload()">మళ్ళీ పరీక్షించండి</button>
+      </div>
+      
+      <div class="card" style="background:#F0FDF4; border-left:6px solid #22c55e;">
+        <h3 style="font-size:16px; margin-bottom:8px;">సమీప నేల పరీక్ష కేంద్రం (ఖమ్మం)</h3>
+        <p style="font-size:14px; margin-bottom:4px;">📍 ఖమ్మం జిల్లా వ్యవసాయ కార్యాలయం</p>
+        <p style="font-size:14px; margin-bottom:12px;">గవర్నమెంట్ ద్వారా ఉచితంగా <strong>Soil Health Card</strong> పొందండి.</p>
+        <div style="display:flex; gap:12px;">
+          <a href="tel:08742222222" class="btn" style="background:#22c55e; color:white; height:40px; flex:1;">📞 08742-222222</a>
+          <a href="https://soilhealth.dac.gov.in/" target="_blank" class="btn" style="background:white; color:var(--primary); border:1px solid var(--primary); height:40px; flex:1;">🌐 వెబ్సైట్</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <button class="fab-whatsapp" onclick="window.open('https://wa.me/919059292300', '_blank')">💬</button>
+
+<script>
+function calculateSoil() {
+  const c1 = document.querySelector('input[name="q1"]:checked');
+  const c2 = document.querySelector('input[name="q2"]:checked');
+  const ph = parseFloat(document.getElementById('q3').value) || 0;
+  
+  if(!c1 || !c2) { alert('దయచేసి మొదటి 2 ప్రశ్నలకు సరైన సమాధానం ఇవ్వండి.'); return; }
+  
+  let type = "నల్ల నేల (Black Cotton Soil)";
+  let isGoodFor = "పత్తి, జొన్న, శనగ, మిర్చి";
+  let alertM = "నీరు నిలవకుండా డ్రైనేజ్ సరిగ్గా చూసుకోండి.";
+  
+  if(c1.value === 'red') { type = "ఎర్ర నేల (Red Soil)"; isGoodFor = "వేరుశెనగ, జొన్న, పప్పు దినుసులు"; alertM = "నీటిని త్వరగా పీల్చుకుంటుంది, తరచుగా నీరు పెట్టాలి."; }
+  if(c1.value === 'brown') { type = "గోధుమ నేల (Alluvial)"; isGoodFor = "వరి, చెరకు, కూరగాయలు"; alertM = "అత్యధిక సారావంతమైనది. తగు ఎరువులు వాడితే మంచిది."; }
+  
+  let phText = "తెలియదు";
+  if(ph > 0) {
+    if(ph < 6.5) phText = ph + " (ఆమ్లత్వం ఎక్కువ)";
+    else if(ph > 7.5) { phText = ph + " (క్షారత్వం ఎక్కువ)"; alertM += " జిప్సం వాడండి."; }
+    else phText = ph + " (తటస్థం - చాలా మంచిది)";
+  }
+  
+  const hText = `
+    <strong>మీ నేల రకం:</strong> ${type}<br>
+    <strong>నేల స్వభావం:</strong> ${c2.value === 'sticky' ? 'బంకమట్టి' : (c2.value === 'sandy' ? 'ఇసుక' : 'మధ్యస్థం (గరుకు)')}<br>
+    <strong>pH:</strong> ${phText}<br>
+    <strong>సూచించే పంటలు:</strong> ${isGoodFor}<br><br>
+    <span style="color:var(--danger); font-weight:bold;">జాగ్రత్త:</span> ${alertM}
+  `;
+  
+  document.getElementById('res-desc').innerHTML = hText;
+  document.getElementById('quiz-section').style.display = 'none';
+  document.getElementById('result-section').style.display = 'block';
+  document.getElementById('result-section').scrollIntoView({behavior:'smooth'});
+}
+</script>
+</body>
+</html>

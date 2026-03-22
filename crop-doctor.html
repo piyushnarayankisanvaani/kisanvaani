@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KisanVaani - Crop Doctor</title>
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#1B4332">
+  <link rel="apple-touch-icon" href="./icons/icon-192.png">
+
+<!-- Inline Globals -->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;500;600;700;800&display=swap');
+:root { --primary:#1B4332; --secondary:#F59E0B; --bg-color:#F8FAFC; --text-main:#1E293B; --text-muted:#64748B; --border:#E2E8F0; --white:#FFF; }
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Noto Sans Telugu', sans-serif;}
+body { background: var(--bg-color); color: var(--text-main); padding-bottom: 80px; }
+.navbar { background: var(--primary); padding: 16px 20px; color: white;}
+.container { max-width: 800px; margin: 0 auto; padding: 20px; }
+.card { background: white; border-radius: 16px; padding: 20px; box-shadow: 0 4px 16px rgba(0,0,0,0.05); margin-bottom: 20px; }
+.btn { border: none; padding: 12px 24px; border-radius: 12px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; text-decoration: none; width:100%; font-size:16px;}
+.btn-primary { background: var(--primary); color: white; }
+.btn-secondary { background: var(--secondary); color:#000; }
+.fab-whatsapp { position: fixed; bottom: 24px; right: 24px; background: #25D366; color: white; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; border: none; z-index:990; }
+.upload-box { border: 2px dashed var(--border); border-radius: 16px; height: 200px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; background: #F8FAFC; transition: 0.2s; position: relative; overflow: hidden; }
+.upload-box:hover { border-color: var(--primary); background: #F0FDF4; }
+.symptom-check { display: flex; align-items: center; gap: 12px; padding: 12px; border: 1px solid var(--border); border-radius: 8px; margin-bottom: 8px; cursor: pointer; }
+.symptom-check input { width: 18px; height: 18px; accent-color: var(--primary); }
+.crop-btn { border: 1px solid var(--border); background: white; padding: 12px; border-radius: 12px; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 8px; transition: 0.2s; }
+.crop-btn.active { border-color: var(--primary); background: #F0FDF4; font-weight: bold; }
+</style>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+
+  <!-- Universal Navbar to be injected properly later, adding baseline here -->
+  <nav class="navbar" style="display:flex; justify-content:space-between;">
+    <div style="font-weight:800; font-size:20px;">🌿 పంట వైద్యుడు</div>
+    <a href="./index.html" style="color:white;">Home</a>
+  </nav>
+  
+  
+  <div id="univ-nav" style="background:#2D6A4F; overflow-x:auto; white-space:nowrap; padding:10px 20px; color:white; font-size:14px; display:flex; gap:16px; margin-bottom:12px; border-bottom:2px solid #1B4332;">
+    <a href="./index.html" style="text-decoration:none; color:white;">Home</a>
+    <a href="./marketplace.html" style="text-decoration:none; color:white;">Market</a>
+    <a href="./mandi-prices.html" style="text-decoration:none; color:white;">Prices</a>
+    <a href="./facilities.html" style="text-decoration:none; color:white;">Facilities</a>
+    <a href="./weather.html" style="text-decoration:none; color:white;">Weather</a>
+    <a href="./crop-doctor.html" style="text-decoration:none; color:var(--secondary); font-weight:bold;">Doctor 🌿</a>
+    <a href="./govt-schemes.html" style="text-decoration:none; color:white;">Schemes 📋</a>
+    <a href="./crop-calendar.html" style="text-decoration:none; color:white;">Calendar 📅</a>
+    <a href="./expert-help.html" style="text-decoration:none; color:white;">Help 🤝</a>
+  </div>
+
+
+  <div class="container">
+    
+    <div style="margin-bottom:24px; text-align:center;">
+      <h2 style="font-size:24px; margin-bottom:4px;">పంట వ్యాధి నిర్ధారణ</h2>
+      <p style="color:var(--text-muted); font-size:15px;">మీ పంట ఫోటో తీసి వ్యాధి తెలుసుకోండి</p>
+    </div>
+
+    <!-- Section 1: Upload -->
+    <div class="card">
+      <h3 style="margin-bottom:12px; font-size:16px;">1. ఫోటో తీయండి లేదా అప్లోడ్ చేయండి</h3>
+      <label class="upload-box" id="upload-box">
+        <input type="file" accept="image/*" capture="environment" style="display:none;" onchange="handleImage(this)">
+        <div id="upload-idle" style="text-align:center;">
+          <div style="font-size:40px; margin-bottom:8px;">📷</div>
+          <div style="font-weight:600;">కెమెరా ఆన్ చేయండి</div>
+          <div style="font-size:12px; color:var(--text-muted); margin-top:4px;">లేదా గ్యాలరీ నుండి ఎంచుకోండి</div>
+        </div>
+        <img id="upload-preview" style="display:none; width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0;" />
+      </label>
+    </div>
+
+    <!-- Section 2: Crop Selector -->
+    <div class="card">
+      <h3 style="margin-bottom:12px; font-size:16px;">2. మీ పంటను ఎంచుకోండి</h3>
+      <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:12px;" id="crop-grid">
+        <div class="crop-btn" onclick="selectCrop('Rice', this)"><span style="font-size:24px;">🌾</span><span>వరి</span></div>
+        <div class="crop-btn" onclick="selectCrop('Chilli', this)"><span style="font-size:24px;">🌶️</span><span>మిర్చి</span></div>
+        <div class="crop-btn" onclick="selectCrop('Cotton', this)"><span style="font-size:24px;">🌿</span><span>పత్తి</span></div>
+        <div class="crop-btn" onclick="selectCrop('Tomato', this)"><span style="font-size:24px;">🍅</span><span>టమాటా</span></div>
+      </div>
+    </div>
+
+    <!-- Section 3: Symptoms -->
+    <div class="card" id="symptoms-section" style="display:none;">
+      <h3 style="margin-bottom:12px; font-size:16px;">3. మీ పంటలో ఏమి కనిపిస్తోంది?</h3>
+      <div id="symptoms-list">
+        <label class="symptom-check"><input type="checkbox" value="yellow"> <span>ఆకులు పసుపు పడ్డాయి (Yellow leaves)</span></label>
+        <label class="symptom-check"><input type="checkbox" value="spots"> <span>ఆకులపై మచ్చలు (Spots on leaves)</span></label>
+        <label class="symptom-check"><input type="checkbox" value="wilting"> <span>ఆకులు వాడిపోతున్నాయి (Wilting)</span></label>
+        <label class="symptom-check"><input type="checkbox" value="black_stem"> <span>పంట కాండం నల్లగా అయింది (Black stem)</span></label>
+        <label class="symptom-check"><input type="checkbox" value="falling"> <span>పంట నిలబడలేదు (Crop falling)</span></label>
+        <label class="symptom-check"><input type="checkbox" value="flowers"> <span>పూలు రాలిపోతున్నాయి (Flowers dropping)</span></label>
+        <label class="symptom-check"><input type="checkbox" value="insects"> <span>పురుగులు కనిపిస్తున్నాయి (Insects visible)</span></label>
+        <label class="symptom-check"><input type="checkbox" value="root_rot"> <span>వేర్లు కుళ్ళిపోతున్నాయి (Root rot)</span></label>
+      </div>
+      <button class="btn btn-primary" style="margin-top:16px;" onclick="diagnoseDisease()">వ్యాధిని కనుగొనండి</button>
+    </div>
+
+    <!-- Section 4: Result -->
+    <div id="result-card" style="display:none;">
+      <div class="card" style="border:2px solid var(--danger);">
+        <div style="display:flex; align-items:center; gap:12px; border-bottom:1px solid var(--border); padding-bottom:12px; margin-bottom:12px;">
+          <div style="font-size:40px;">🦠</div>
+          <div>
+            <div style="color:var(--danger); font-weight:800; font-size:20px;" id="res-name">ప్రాసెస్ అవుతోంది...</div>
+            <div style="font-size:14px; color:var(--text-muted);" id="res-severity">Severity: అధికం</div>
+          </div>
+        </div>
+        
+        <h4 style="margin-bottom:8px; display:flex; align-items:center; gap:8px;"><span style="font-size:20px;">💊</span> చికిత్స (Treatment):</h4>
+        <div style="background:#F0FDF4; padding:16px; border-radius:12px; margin-bottom:16px;" id="res-treatment">
+          లోడ్ అవుతోంది...
+        </div>
+        
+        <h4 style="margin-bottom:8px; display:flex; align-items:center; gap:8px;"><span style="font-size:20px;">🛡️</span> నివారణ (Prevention):</h4>
+        <ul style="padding-left:20px; color:var(--text-muted); font-size:14px; margin-bottom:20px;" id="res-prevention">
+          <li>పంటలో నీరు నిలవకుండా చూసుకోండి</li>
+          <li>సరైన మోతాదులలో ఎరువులు వాడండి</li>
+        </ul>
+        
+        <button class="btn btn-secondary" onclick="window.open('https://wa.me/919059292300?text=నమస్కారం!%20నా%20పంటకు%20వ్యాధి%20వచ్చింది.%20సహాయం%20కావాలి.%20ఫోటో%20పంపుతాను.', '_blank')">
+          <span style="font-size:20px; margin-right:8px;">💬</span> నిపుణుడిని సంప్రదించండి
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <button class="fab-whatsapp" onclick="window.open('https://wa.me/919059292300', '_blank')">💬</button>
+
+<script>
+let selectedCrop = '';
+
+function handleImage(input) {
+  if (input.files && input.files[0]) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      document.getElementById('upload-idle').style.display = 'none';
+      const img = document.getElementById('upload-preview');
+      img.src = e.target.result;
+      img.style.display = 'block';
+    }
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+function selectCrop(crop, el) {
+  selectedCrop = crop;
+  document.querySelectorAll('.crop-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('symptoms-section').style.display = 'block';
+  document.getElementById('result-card').style.display = 'none';
+}
+
+function diagnoseDisease() {
+  const checks = Array.from(document.querySelectorAll('#symptoms-list input:checked')).map(cb => cb.value);
+  if (checks.length === 0 && !document.getElementById('upload-preview').src) {
+    alert('దయచేసి లక్షణాలను ఎంచుకోండి లేదా ఫోటో అప్లోడ్ చేయండి.');
+    return;
+  }
+  
+  // Rule based fallback system based on prompt parameters
+  let name = 'సాధారణ సమస్య (General Issue)';
+  let treatment = 'తగినంత నీరు మరియు వేపపుండి (Neem oil) పిచికారీ చేయండి.';
+  
+  if (selectedCrop === 'Rice') {
+    if (checks.includes('yellow') && checks.includes('spots')) {
+      name = 'వరి బ్లాస్ట్ (Rice Blast)';
+      treatment = 'ట్రైసైక్లజోల్ 75WP 0.6g/liter నీటిలో కలిపి పిచికారీ చేయండి.';
+    } else if (checks.includes('wilting')) {
+      name = 'వరి కాలర్ రాట్ (Collar Rot)';
+      treatment = 'కార్బెండాజిం 50WP 1g/liter పిచికారీ చేయండి.';
+    } else if (checks.includes('spots')) {
+      name = 'వరి బ్రౌన్ స్పాట్ (Brown Spot)';
+      treatment = 'మాంకోజెబ్ 75WP 2g/liter పిచికారీ చేయండి.';
+    }
+  } else if (selectedCrop === 'Chilli') {
+    if (checks.includes('spots') && checks.includes('wilting')) {
+      name = 'మిర్చి ఆంత్రాక్నోస్ (Anthracnose)';
+      treatment = 'కాపర్ ఆక్సీక్లోరైడ్ 50WP 3g/liter పిచికారీ చేయండి.';
+    } else if (checks.includes('yellow') || checks.includes('falling')) {
+      name = 'మిర్చి వైరస్ (Leaf Curl Virus)';
+      treatment = 'ఇమిడాక్లోప్రిడ్ 17.8 SL 0.5ml/liter పిచికారీ చేయండి.';
+    }
+  } else if (selectedCrop === 'Cotton') {
+    if (checks.includes('wilting')) {
+      name = 'పత్తి విల్ట్ (Cotton Wilt)';
+      treatment = 'కార్బెండాజిం 1g/liter కలిపి వేర్లకు పోయాలి.';
+    } else {
+      name = 'పత్తి రెడ్ లీఫ్ (Red Leaf)';
+      treatment = 'మెగ్నీషియం సల్ఫేట్ పిచికారీ చేయండి.';
+    }
+  } else if (selectedCrop === 'Tomato') {
+    if (checks.includes('black_stem') || checks.includes('root_rot')) {
+      name = 'టమాటా BER (Black Bottom)';
+      treatment = 'కాల్షియం నైట్రేట్ పిచికారీ చేయండి.';
+    } else {
+      name = 'టమాటా అర్లీ బ్లైట్ (Early Blight)';
+      treatment = 'మాంకోజెబ్ 75WP 2.5g/liter పిచికారీ చేయండి.';
+    }
+  }
+
+  document.getElementById('res-name').innerText = name;
+  document.getElementById('res-treatment').innerHTML = `<strong>మందు/కెమికల్:</strong> ${treatment}<br><br><span style="font-size:13px; color:var(--text-muted);">ఉదయం లేదా సాయంత్రం సమయంలో మాత్రమే మందులు పిచికారీ చేయండి.</span>`;
+  
+  document.getElementById('result-card').style.display = 'block';
+  document.getElementById('result-card').scrollIntoView({behavior: 'smooth'});
+}
+</script>
+
+</body>
+</html>

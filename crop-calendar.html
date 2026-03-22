@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KisanVaani - Crop Calendar & Diary</title>
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#1B4332">
+  <link rel="apple-touch-icon" href="./icons/icon-192.png">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;500;600;700;800&display=swap');
+:root { --primary:#1B4332; --secondary:#F59E0B; --bg-color:#F8FAFC; --text-muted:#64748B; --border:#E2E8F0; }
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Noto Sans Telugu', sans-serif;}
+body { background: var(--bg-color); color: #1E293B; padding-bottom: 80px; }
+.navbar { background: var(--primary); padding: 16px 20px; color: white;}
+.container { max-width: 800px; margin: 0 auto; padding: 20px; }
+.card { background: white; border-radius: 16px; padding: 20px; box-shadow: 0 4px 16px rgba(0,0,0,0.05); margin-bottom: 20px; }
+.btn { border: none; padding: 12px 24px; border-radius: 12px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; text-decoration: none; width:100%; font-size:16px;}
+.btn-primary { background: var(--primary); color: white; }
+.fab-whatsapp { position: fixed; bottom: 24px; right: 24px; background: #25D366; color: white; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; border: none; z-index:990; }
+.form-control { width: 100%; padding: 12px; border: 2px solid var(--border); border-radius: 12px; font-size: 15px; margin-bottom:12px; outline:none;}
+.calendar-bar { margin:4px 0; height:12px; border-radius:12px; background:#e2e8f0; display:flex;}
+.month-label { font-size:10px; flex:1; text-align:center; color:var(--text-muted);}
+.d-none { display:none !important; }
+</style>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+  
+  <nav class="navbar" style="display:flex; justify-content:space-between;">
+    <div style="font-weight:800; font-size:20px;">📅 పంట క్యాలెండర్</div>
+    <a href="./index.html" style="color:white;">Home</a>
+  </nav>
+
+  
+  <div id="univ-nav" style="background:#2D6A4F; overflow-x:auto; white-space:nowrap; padding:10px 20px; color:white; font-size:14px; display:flex; gap:16px; margin-bottom:12px; border-bottom:2px solid #1B4332;">
+    <a href="./index.html" style="text-decoration:none; color:white;">Home</a>
+    <a href="./marketplace.html" style="text-decoration:none; color:white;">Market</a>
+    <a href="./mandi-prices.html" style="text-decoration:none; color:white;">Prices</a>
+    <a href="./facilities.html" style="text-decoration:none; color:white;">Facilities</a>
+    <a href="./weather.html" style="text-decoration:none; color:white;">Weather</a>
+    <a href="./crop-doctor.html" style="text-decoration:none; color:var(--secondary); font-weight:bold;">Doctor 🌿</a>
+    <a href="./govt-schemes.html" style="text-decoration:none; color:white;">Schemes 📋</a>
+    <a href="./crop-calendar.html" style="text-decoration:none; color:white;">Calendar 📅</a>
+    <a href="./expert-help.html" style="text-decoration:none; color:white;">Help 🤝</a>
+  </div>
+
+
+  <div class="container">
+    <div style="margin-bottom:24px; text-align:center;">
+      <h2 style="font-size:24px; margin-bottom:4px;">క్యాలెండర్ & డైరీ</h2>
+      <p style="color:var(--text-muted); font-size:15px;">ఖమ్మం జిల్లా వాతావరణం కోసం ప్రత్యేకంగా</p>
+    </div>
+
+    <!-- Section: Today Advice -->
+    <div class="card" style="background:#FFFBEB; border:1px solid #FDE68A;">
+      <h3 style="display:flex; align-items:center; gap:8px; font-size:16px; margin-bottom:8px;"><span style="font-size:20px;">💡</span> నేటి వ్యవసాయ సలహా</h3>
+      <p style="font-size:14px; color:#92400E;" id="todays-advice">వాతావరణం వెచ్చగా ఉంది. ఈ వారం ఎరువులు, నీటి యాజమాన్యంపై ప్రత్యేక శ్రద్ధ పెట్టండి.</p>
+    </div>
+
+    <!-- Season Planner -->
+    <h3 style="margin-bottom:12px;">ఖరీఫ్ పంటలు (Kharif)</h3>
+    
+    <div class="card">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+        <span style="font-weight:800; font-size:18px;">🌾 వరి (Rice)</span>
+        <span style="color:var(--text-muted); font-size:13px;">25-35 క్వింటాళ్లు/ఎకరా</span>
+      </div>
+      <!-- Progress Bar timeline representation J J A S O N D J F M A M -->
+      <div style="display:flex;">
+        <div class="month-label">Jun</div><div class="month-label">Jul</div><div class="month-label">Aug</div><div class="month-label">Sep</div>
+        <div class="month-label">Oct</div><div class="month-label">Nov</div><div class="month-label">Dec</div><div class="month-label">Jan</div>
+      </div>
+      <div class="calendar-bar">
+        <div style="flex:2; background:#22c55e;" title="Sowing"></div>
+        <div style="flex:3; background:#FCD34D;" title="Growing"></div>
+        <div style="flex:2; background:#F59E0B;" title="Harvesting"></div>
+        <div style="flex:5;"></div>
+      </div>
+      <div style="margin-top:12px; font-size:13px; color:var(--text-muted);">
+        <strong>విత్తడం:</strong> జూన్-జులై • <strong>కోత:</strong> నవంబర్-డిసెంబర్
+      </div>
+    </div>
+
+    <div class="card">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+        <span style="font-weight:800; font-size:18px;">🌿 పత్తి (Cotton)</span>
+        <span style="color:var(--text-muted); font-size:13px;">8-12 క్వింటాళ్లు/ఎకరా</span>
+      </div>
+      <div style="display:flex;">
+        <div class="month-label">May</div><div class="month-label">Jun</div><div class="month-label">Jul</div><div class="month-label">Aug</div>
+        <div class="month-label">Sep</div><div class="month-label">Oct</div><div class="month-label">Nov</div><div class="month-label">Dec</div><div class="month-label">Jan</div>
+      </div>
+      <div class="calendar-bar">
+        <div style="flex:2; background:#22c55e;"></div>
+        <div style="flex:3; background:#FCD34D;"></div>
+        <div style="flex:4; background:#F59E0B;"></div>
+        <div style="flex:3;"></div>
+      </div>
+      <div style="margin-top:12px; font-size:13px; color:var(--text-muted);">
+        <strong>విత్తడం:</strong> మే-జూన్ • <strong>మొదటి కోత:</strong> అక్టోబర్
+      </div>
+    </div>
+
+    <!-- Farm Diary -->
+    <h3 style="margin-top:32px; margin-bottom:12px;">📝 నా వృత్తి రికార్డులు (Farm Diary)</h3>
+    <div class="card" style="background:#F8FAFC;">
+      <h4 style="margin-bottom:12px; font-size:15px;">క్రొత్త రికార్డు నమోదు చేయండి</h4>
+      <input type="date" id="d-date" class="form-control">
+      <input type="text" id="d-crop" class="form-control" placeholder="పంట పేరు (ఉదా: వరి, పత్తి)">
+      <select id="d-activity" class="form-control">
+        <option value="దుక్కి / విత్తనాలు">దుక్కి / విత్తనాలు</option>
+        <option value="నీరు / ఎరువు">నీరు / ఎరువు</option>
+        <option value="పురుగుమందు">పురుగుమందు</option>
+        <option value="కోత">కోత</option>
+        <option value="అమ్మకం (Income)">అమ్మకం (ఆదాయం)</option>
+      </select>
+      <input type="number" id="d-cost" class="form-control" placeholder="మొత్తం ఖర్చు లేదా ఆదాయం (₹)">
+      <button class="btn btn-primary" onclick="addDiaryEntry()">నమోదు చేయండి</button>
+    </div>
+
+    <div class="card" style="overflow-x:auto;">
+      <table style="width:100%; text-align:left; border-collapse:collapse; min-width:500px;" id="diary-table">
+        <thead>
+          <tr style="border-bottom:2px solid var(--border);">
+            <th style="padding:12px 8px;">తేదీ</th>
+            <th style="padding:12px 8px;">పంట</th>
+            <th style="padding:12px 8px;">పని అంచనా</th>
+            <th style="padding:12px 8px;">మొత్తం (₹)</th>
+          </tr>
+        </thead>
+        <tbody id="diary-tbody">
+          <tr><td colspan="4" style="text-align:center; padding:16px; color:var(--text-muted);">ఎలాంటి రికార్డ్స్ లేవు.</td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top:16px; display:flex; justify-content:space-between; font-weight:bold; font-size:16px;" id="diary-total">
+        <span>మొత్తం ఖర్చు: ₹0</span>
+      </div>
+    </div>
+
+  </div>
+
+  <button class="fab-whatsapp" onclick="window.open('https://wa.me/919059292300', '_blank')">💬</button>
+
+<script>
+function renderDiary() {
+  const entries = JSON.parse(localStorage.getItem('kv_diary') || '[]');
+  const body = document.getElementById('diary-tbody');
+  
+  if (entries.length === 0) {
+    body.innerHTML = '<tr><td colspan="4" style="text-align:center; padding:16px; color:var(--text-muted);">ఎలాంటి రికార్డ్స్ లేవు.</td></tr>';
+    document.getElementById('diary-total').innerHTML = `<span>మొత్తం ఖర్చు: ₹0</span>`;
+    return;
+  }
+  
+  let cost = 0;
+  let income = 0;
+  
+  body.innerHTML = entries.map(e => {
+    const isInc = e.activity.includes('Income') || e.activity.includes('ఆదాయం');
+    const val = parseFloat(e.cost) || 0;
+    if(isInc) income += val; else cost += val;
+    return `
+    <tr style="border-bottom:1px solid var(--border);">
+      <td style="padding:12px 8px;">${e.date}</td>
+      <td style="padding:12px 8px;">${e.crop}</td>
+      <td style="padding:12px 8px;">${e.activity.split('(')[0]}</td>
+      <td style="padding:12px 8px; font-weight:bold; color:${isInc ? 'var(--success)' : 'var(--danger)'};">₹${val}</td>
+    </tr>
+  `}).join('');
+  
+  document.getElementById('diary-total').innerHTML = `
+    <span style="color:var(--danger);">ఖర్చు: ₹${cost}</span>
+    <span style="color:var(--success);">ఆదాయం: ₹${income}</span>
+  `;
+}
+
+function addDiaryEntry() {
+  const date = document.getElementById('d-date').value;
+  const crop = document.getElementById('d-crop').value;
+  const activity = document.getElementById('d-activity').value;
+  const cost = document.getElementById('d-cost').value;
+  
+  if (!date || !crop || !cost) { alert('దయచేసి అన్ని వివరాలు పూరించండి.'); return; }
+  
+  const entries = JSON.parse(localStorage.getItem('kv_diary') || '[]');
+  entries.push({ date, crop, activity, cost });
+  localStorage.setItem('kv_diary', JSON.stringify(entries));
+  
+  // Clear
+  document.getElementById('d-cost').value = '';
+  document.getElementById('d-crop').value = '';
+  renderDiary();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('d-date').valueAsDate = new Date();
+  renderDiary();
+  const m = new Date().getMonth();
+  if (m >= 5 && m <= 7) document.getElementById('todays-advice').innerText = "ప్రస్తుతం ఖరీఫ్ ప్రారంభం. విత్తనాలు సిద్ధం చేసుకుని పొలం చదును చేయండి. వర్షాల ఆధారంగా నాట్లు వేయండి.";
+  else if (m >= 8 && m <= 10) document.getElementById('todays-advice').innerText = "పంటలు పెరిగే సమయం. తెగుళ్ళపై జాగ్రత్త వహించండి. సకాలంలో ఎరువులు వాడండి.";
+  else document.getElementById('todays-advice').innerText = "కోత మరియు అమ్మకం సమయం. మండి ధరలను గమనిస్తూ అమ్ముకోవడానికి సిద్ధం అవ్వండి.";
+});
+</script>
+</body>
+</html>

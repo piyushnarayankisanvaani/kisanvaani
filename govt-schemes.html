@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KisanVaani - Govt Schemes</title>
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#1B4332">
+  <link rel="apple-touch-icon" href="./icons/icon-192.png">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;500;600;700;800&display=swap');
+:root { --primary:#1B4332; --secondary:#F59E0B; --bg-color:#F8FAFC; --text-muted:#64748B; --border:#E2E8F0; }
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Noto Sans Telugu', sans-serif;}
+body { background: var(--bg-color); color: #1E293B; padding-bottom: 80px; }
+.navbar { background: var(--primary); padding: 16px 20px; color: white;}
+.container { max-width: 800px; margin: 0 auto; padding: 20px; }
+.card { background: white; border-radius: 16px; padding: 20px; box-shadow: 0 4px 16px rgba(0,0,0,0.05); margin-bottom: 20px; }
+.btn { border: none; padding: 12px 24px; border-radius: 12px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; text-decoration: none; font-size:15px; width:100%;}
+.btn-primary { background: var(--primary); color: white; }
+.fab-whatsapp { position: fixed; bottom: 24px; right: 24px; background: #25D366; color: white; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; border: none; z-index:990; }
+.chip-filter { display:inline-block; padding:8px 16px; border:1px solid var(--border); border-radius:30px; margin-right:8px; margin-bottom:12px; cursor:pointer; font-size:14px; background:white; }
+.chip-filter.active { background:var(--primary); color:white; border-color:var(--primary); font-weight:bold;}
+ul { padding-left:20px; margin-top:8px; margin-bottom:12px; color:var(--text-muted); font-size:14px;}
+.scheme-card { border-left: 6px solid var(--secondary); margin-bottom: 24px;}
+.search-control { width: 100%; padding: 14px; border: 2px solid var(--border); border-radius: 12px; font-size: 15px; margin-bottom: 16px;}
+</style>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+
+  <nav class="navbar" style="display:flex; justify-content:space-between;">
+    <div style="font-weight:800; font-size:20px;">📋 ప్రభుత్వ పథకాలు</div>
+    <a href="./index.html" style="color:white;">Home</a>
+  </nav>
+
+  
+  <div id="univ-nav" style="background:#2D6A4F; overflow-x:auto; white-space:nowrap; padding:10px 20px; color:white; font-size:14px; display:flex; gap:16px; margin-bottom:12px; border-bottom:2px solid #1B4332;">
+    <a href="./index.html" style="text-decoration:none; color:white;">Home</a>
+    <a href="./marketplace.html" style="text-decoration:none; color:white;">Market</a>
+    <a href="./mandi-prices.html" style="text-decoration:none; color:white;">Prices</a>
+    <a href="./facilities.html" style="text-decoration:none; color:white;">Facilities</a>
+    <a href="./weather.html" style="text-decoration:none; color:white;">Weather</a>
+    <a href="./crop-doctor.html" style="text-decoration:none; color:var(--secondary); font-weight:bold;">Doctor 🌿</a>
+    <a href="./govt-schemes.html" style="text-decoration:none; color:white;">Schemes 📋</a>
+    <a href="./crop-calendar.html" style="text-decoration:none; color:white;">Calendar 📅</a>
+    <a href="./expert-help.html" style="text-decoration:none; color:white;">Help 🤝</a>
+  </div>
+
+
+  <div class="container">
+    <div style="margin-bottom:24px; text-align:center;">
+      <h2 style="font-size:24px; margin-bottom:4px;">ప్రభుత్వ పథకాలు</h2>
+      <p style="color:var(--text-muted); font-size:15px;">తెలంగాణ మరియు కేంద్ర ప్రభుత్వ పథకాలు</p>
+    </div>
+
+    <input type="text" class="search-control" placeholder="🔍 వెతకండి (ఉదా: రైతు బంధు, రుణాలు)" onkeyup="filterSchemes(this.value)">
+
+    <div style="overflow-x:auto; white-space:nowrap; margin-bottom:8px;" id="filters">
+      <span class="chip-filter active" onclick="setFilter('all', this)">అన్నీ</span>
+      <span class="chip-filter" onclick="setFilter('ts', this)">తెలంగాణ</span>
+      <span class="chip-filter" onclick="setFilter('central', this)">కేంద్రం</span>
+      <span class="chip-filter" onclick="setFilter('insurance', this)">బీమా</span>
+      <span class="chip-filter" onclick="setFilter('loan', this)">రుణాలు</span>
+    </div>
+
+    <div id="schemes-list">
+      
+      <!-- TS 1 -->
+      <div class="card scheme-card ts" data-name="రైతు బంధు rythu bandhu money">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;">
+          <h3 style="font-size:18px;">రైతు బంధు (Rythu Bandhu)</h3>
+          <span style="background:#DCFCE7; color:#166534; padding:4px 12px; border-radius:12px; font-size:12px; font-weight:bold;">తెలంగాణ</span>
+        </div>
+        <div style="color:var(--secondary); font-weight:800; font-size:20px; margin-bottom:12px;">₹5000 / ఎకరా / సీజన్</div>
+        <p style="font-size:15px;"><strong>ఎవరికి:</strong> భూమి ఉన్న రైతులందరికీ</p>
+        <p style="font-size:15px; margin-top:8px;"><strong>కావలసిన పత్రాలు:</strong></p>
+        <ul><li>ఆధార్ కార్డు</li><li>పట్టాదార్ పాస్ బుక్</li><li>బ్యాంక్ అకౌంట్ వివరాలు</li></ul>
+        <div style="display:flex; gap:12px; margin-top:16px;">
+          <a href="https://telangana.gov.in/" target="_blank" class="btn btn-primary" style="flex:1;">Apply Now</a>
+          <a href="https://wa.me/919059292300?text=నమస్కారం!%20రైతు%20బంధు%20పథకం%20గురించి%20అడగాలి" target="_blank" class="btn" style="flex:1; background:#25D366; color:white;">సహాయం</a>
+        </div>
+        <div style="margin-top:12px; font-size:13px; color:var(--text-muted); text-align:center;">Helpline: <a href="tel:18001806444" style="color:var(--primary); font-weight:bold;">1800-180-6444</a></div>
+      </div>
+
+      <!-- TS 2 -->
+      <div class="card scheme-card ts insurance" data-name="రైతు బీమా rythu bima insurance" style="border-left-color: #3B82F6;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;">
+          <h3 style="font-size:18px;">రైతు బీమా (Rythu Bima)</h3>
+          <span style="background:#DCFCE7; color:#166534; padding:4px 12px; border-radius:12px; font-size:12px; font-weight:bold;">తెలంగాణ</span>
+        </div>
+        <div style="color:var(--secondary); font-weight:800; font-size:20px; margin-bottom:12px;">₹5 లక్షల ఉచిత బీమా</div>
+        <p style="font-size:15px;"><strong>ఎవరికి:</strong> 18 నుండి 59 సంవత్సరాల వయస్సు రైతులు</p>
+        <div style="display:flex; gap:12px; margin-top:16px;">
+          <a href="tel:04023450010" class="btn btn-primary" style="flex:1;">Helpline కు కాల్ చేయండి</a>
+          <a href="https://wa.me/919059292300?text=రైతు%20బీమా%20పథకం%20గురించి%20అడగాలి" target="_blank" class="btn" style="flex:1; background:#25D366; color:white;">సహాయం</a>
+        </div>
+      </div>
+
+      <!-- Central 1 -->
+      <div class="card scheme-card central" data-name="pm kisan pmkisan కిసాన్ సమ్మాన్ నిధి" style="border-left-color: #EF4444;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;">
+          <h3 style="font-size:18px;">PM కిసాన్ సమ్మాన్ నిధి</h3>
+          <span style="background:#FEE2E2; color:#991B1B; padding:4px 12px; border-radius:12px; font-size:12px; font-weight:bold;">కేంద్రం</span>
+        </div>
+        <div style="color:var(--secondary); font-weight:800; font-size:20px; margin-bottom:12px;">₹6000 / సంవత్సరం</div>
+        <p style="font-size:15px;"><strong>ఎవరికి:</strong> చిన్న మరియు సన్నకారు రైతులు అప్లై చేయొచ్చు.</p>
+        <p style="font-size:15px; margin-top:8px;"><strong>కావలసిన పత్రాలు:</strong></p>
+        <ul><li>ఆధార్ నంబర్, బ్యాంక్ పాస్ బుక్, పొలం కాగితాలు</li></ul>
+        <div style="display:flex; gap:12px; margin-top:16px;">
+          <a href="https://pmkisan.gov.in/" target="_blank" class="btn btn-primary" style="flex:1;">వెబ్సైట్</a>
+          <a href="https://wa.me/919059292300?text=PM%20కిసాన్%20పథకం%20గురించి%20అడగాలి" target="_blank" class="btn" style="flex:1; background:#25D366; color:white;">సహాయం</a>
+        </div>
+      </div>
+
+      <!-- Central 2 Loan -->
+      <div class="card scheme-card central loan" data-name="kcc kisan credit card కిసాన్ క్రెడిట్ కార్డ్ లోన్ loan" style="border-left-color: #8B5CF6;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;">
+          <h3 style="font-size:18px;">కిసాన్ క్రెడిట్ కార్డ్ (KCC)</h3>
+          <span style="background:#F3E8FF; color:#6B21A8; padding:4px 12px; border-radius:12px; font-size:12px; font-weight:bold;">రుణాలు / కేంద్రం</span>
+        </div>
+        <div style="color:var(--secondary); font-weight:800; font-size:20px; margin-bottom:12px;">₹3 లక్షల వరకు రుణం (4% వడ్డీ)</div>
+        <p style="font-size:15px;"><strong>ఎలా?:</strong> మీ దగ్గరలో ఉన్న బ్యాంకును సంప్రదించండి.</p>
+        <div style="display:flex; gap:12px; margin-top:16px;">
+          <a href="https://wa.me/919059292300?text=KCC%20పథకం%20గురించి%20అడగాలి" target="_blank" class="btn" style="width:100%; background:#25D366; color:white;">WhatsApp సహాయం</a>
+        </div>
+      </div>
+
+      <!-- Central 3 Insurance -->
+      <div class="card scheme-card central insurance" data-name="pmfby fasal bima crop insurance ఫసల్ బీమా">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;">
+          <h3 style="font-size:18px;">ప్రధాన మంత్రి ఫసల్ బీమా</h3>
+          <span style="background:#FEE2E2; color:#991B1B; padding:4px 12px; border-radius:12px; font-size:12px; font-weight:bold;">బీమా / కేంద్రం</span>
+        </div>
+        <div style="color:var(--secondary); font-weight:800; font-size:20px; margin-bottom:12px;">పంట నష్ట పరిహారం</div>
+        <p style="font-size:15px;"><strong>ప్రక్రియ:</strong> మీ పంట నష్టపోయిన 72 గంటలలోపు రిపోర్ట్ చేయండి.</p>
+        <div style="display:flex; gap:12px; margin-top:16px;">
+          <a href="https://pmfby.gov.in/" target="_blank" class="btn btn-primary" style="flex:1;">వెబ్సైట్ (Apply)</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- FAQ Accordion base -->
+    <h3 style="margin-top:32px; margin-bottom:12px;">సాధారణ ప్రశ్నలు (FAQ)</h3>
+    <div class="card" style="padding:16px; margin-bottom:12px;">
+      <h4 style="font-size:16px;">PM కిసాన్ స్టేటస్ ఎలా చెక్ చేయాలి?</h4>
+      <p style="font-size:14px; color:var(--text-muted); margin-top:8px;">pmkisan.gov.in వెబ్సైట్ కి వెళ్లి "Beneficiary Status" పై నొక్కి ఆధార్ నెంబర్ తో వెతకవచ్చు.</p>
+    </div>
+    <div class="card" style="padding:16px; margin-bottom:12px;">
+      <h4 style="font-size:16px;">రైతు బంధు డబ్బులు రాలేదు, ఏమి చేయాలి?</h4>
+      <p style="font-size:14px; color:var(--text-muted); margin-top:8px;">మీ సమీప వ్యవసాయ అధికారిని లేదా మీసేవ కేంద్రాన్ని సంప్రదించండి. బ్యాంక్ అకౌంట్ తప్పుగా ఉందో లేదో సరిచూసుకోండి.</p>
+    </div>
+
+  </div>
+
+  <button class="fab-whatsapp" onclick="window.open('https://wa.me/919059292300', '_blank')">💬</button>
+
+<script>
+let currentFilter = 'all';
+function setFilter(type, el) {
+  currentFilter = type;
+  document.querySelectorAll('.chip-filter').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  applyFilters(document.querySelector('.search-control').value);
+}
+
+function filterSchemes(term) {
+  applyFilters(term);
+}
+
+function applyFilters(term) {
+  term = term.toLowerCase();
+  const cards = document.querySelectorAll('.scheme-card');
+  cards.forEach(card => {
+    const text = card.getAttribute('data-name').toLowerCase();
+    const matchesSearch = text.includes(term);
+    const matchesType = currentFilter === 'all' || card.classList.contains(currentFilter);
+    card.style.display = (matchesSearch && matchesType) ? 'block' : 'none';
+  });
+}
+</script>
+</body>
+</html>
